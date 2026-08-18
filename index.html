@@ -167,7 +167,9 @@
 
   /* ---------- hero ---------- */
   .hero{ position:relative; overflow:hidden; background:
-      radial-gradient(120% 80% at 78% 30%, rgba(76,125,247,.10), transparent 60%), var(--bg); }
+      radial-gradient(110% 82% at 82% 28%, rgba(22,214,201,.16), transparent 58%),
+      radial-gradient(90% 70% at 72% 56%, rgba(231,178,60,.11), transparent 64%),
+      var(--bg); }
   #lattice{ position:absolute; inset:0 0 0 34%; width:66%; height:100%; }
 
   /* molecular hex field: two identical tiles stacked and slid upward, so the
@@ -191,7 +193,7 @@
   }
   .hero-grid{
     position:relative; z-index:2;
-    display:grid; grid-template-columns: 1fr 1.05fr; gap:40px; align-items:center;
+    display:grid; grid-template-columns: 0.92fr 1.18fr; gap:36px; align-items:center;
     padding-block: clamp(44px, 5.5vw, 76px);
   }
   .hero h1{
@@ -217,7 +219,7 @@
   /* free-standing wordmark: no plate, no frame — just the letters, in gold
      with a sheen that sweeps across them */
   .lockup{
-    position:relative; width:min(100%, 560px); text-align:center;
+    position:relative; width:min(112%, 720px); margin-inline:auto; text-align:center;
     animation: float 9s ease-in-out infinite;
     /* promote to its own layer: without this the float re-rasterises the
        glowing text every frame instead of just compositing it */
@@ -231,35 +233,16 @@
       rgba(5,6,10,.94), rgba(5,6,10,.74) 46%, rgba(5,6,10,.30) 68%, rgba(5,6,10,0) 84%);
   }
   .lockup .mark{
-    display:inline-block;
-    font-family:var(--font-display); font-weight:800; font-style:italic;
-    font-size: clamp(64px, 9.2vw, 138px); line-height:.92;
-    letter-spacing:-.035em; text-transform:uppercase;
-    /* static gradient: sweeping it repainted 138px text every frame and cost
-       ~6 fps, and the metal reads better fixed anyway */
-    /* vertical, like real gold leaf: every letter gets the highlight at the
-       top and the deep tone at the base — horizontal left some letters brown */
-    /* the glyphs only sample the middle of the box, so the whole ramp lives in
-       bright gold — no brown stops for the caps to land on */
-    background-image: linear-gradient(180deg,
-      #FFF8DC 0%, #FFE38F 12%, #FFCF52 28%, #F6B72E 44%,
-      #FFD361 56%, #FFE9A8 72%, #EFB52C 86%, #D09417 100%);
-    background-size: 100% 100%;
-    -webkit-background-clip:text; background-clip:text;
-    color:transparent; -webkit-text-fill-color:transparent;
-    /* drop-shadow, NOT text-shadow: with background-clip:text the gradient is
-       the element's background, and a text-shadow paints on top of it — that
-       is what was dulling the gold by ~23%. drop-shadow sits behind. */
+    display:block; width:100%; height:auto;
+    /* drop-shadow, no text-shadow: sobre un degradado recortado la sombra de
+       texto se pinta ENCIMA y apaga el oro */
     filter:
-      drop-shadow(0 3px 0 rgba(48,28,3,.9))
-      drop-shadow(0 10px 26px rgba(0,0,0,.85))
-      drop-shadow(0 0 70px rgba(224,164,32,.6));
+      drop-shadow(0 10px 22px rgba(0,0,0,.72));
   }
-  .lockup .mark sup{ font-size:.42em; vertical-align:.62em; letter-spacing:0; }
   .lockup .labs{
-    display:block; margin-top:6px;
+    display:block; margin-top:-4px; text-align:right; padding-right:9%;
     font-family:var(--font-display); font-weight:800; font-style:italic;
-    font-size: clamp(19px, 2.5vw, 34px); letter-spacing:.54em; text-indent:.54em;
+    font-size: clamp(20px, 2.7vw, 38px); letter-spacing:.5em; text-indent:.5em;
     text-transform:uppercase; color:#E6EAF2;
     text-shadow:0 2px 14px rgba(0,0,0,.85), 0 0 30px rgba(199,204,212,.35);
   }
@@ -608,8 +591,42 @@
 
     <div class="hero-art">
       <div class="lockup">
-        <span class="mark">PEP-T<sup>+</sup></span>
-        <span class="labs">Labs</span>
+        <svg class="mark" viewBox="90 340 1150 250" role="img" aria-label="PEP-T+ Labs">
+          <defs>
+            <linearGradient id="wmGold" gradientUnits="userSpaceOnUse" x1="0" y1="350" x2="0" y2="570">
+              <stop offset="0" stop-color="#FFFCE3"/>
+              <stop offset=".10" stop-color="#FFE899"/>
+              <stop offset=".24" stop-color="#F7C84A"/>
+              <stop offset=".39" stop-color="#A96108"/>
+              <stop offset=".51" stop-color="#FFF1A8"/>
+              <stop offset=".65" stop-color="#F4B72C"/>
+              <stop offset=".82" stop-color="#7B4100"/>
+              <stop offset="1" stop-color="#E9A91D"/>
+            </linearGradient>
+            <linearGradient id="wmGoldEdge" gradientUnits="userSpaceOnUse" x1="0" y1="350" x2="0" y2="570">
+              <stop offset="0" stop-color="#FFFFFF"/>
+              <stop offset=".18" stop-color="#FFE487"/>
+              <stop offset=".48" stop-color="#9A5708"/>
+              <stop offset=".72" stop-color="#FFD964"/>
+              <stop offset="1" stop-color="#512900"/>
+            </linearGradient>
+            <filter id="wmGlow" x="-15%" y="-40%" width="140%" height="190%">
+              <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000000" flood-opacity=".62"/>
+            </filter>
+            <path id="heroWordmark" fill-rule="evenodd" d="M161 360 H305 C329 360 344 375 341 398 C338 423 315 445 283 450 H191 C182 450 176 456 172 466 L151 524 H109 L139 451 C145 437 159 428 178 428 H267 C284 428 295 419 298 406 C301 393 293 384 277 384 H191 C177 384 166 377 161 365 Z M420 360 H568 C564 372 552 381 538 384 H452 C439 384 429 389 423 399 C417 408 413 418 410 428 H532 C529 439 520 447 509 450 H399 L390 469 C385 482 390 492 402 498 C410 501 420 501 429 501 H513 L507 523 H398 C374 523 355 514 346 500 C337 486 339 469 345 452 L360 414 C370 386 392 367 420 360 Z M600 360 H741 C770 360 788 375 786 398 C783 423 760 445 728 450 H624 C615 450 608 456 604 466 L585 524 H542 L570 452 C576 438 590 428 608 428 H710 C727 428 739 418 742 405 C745 392 737 384 721 384 H627 C614 384 604 377 600 365 Z M800 433 H891 L886 452 H795 Z M940 360 H1119 C1115 371 1104 379 1090 383 H1032 L996 480 C990 497 982 510 972 517 C962 523 951 526 942 523 L938 513 C944 507 949 498 953 487 L990 385 H964 C950 385 942 383 934 386 L893 397 C896 386 904 376 915 369 C925 363 933 361 940 360 Z M1152 395 H1175 L1164 432 H1217 L1210 454 H1158 L1143 495 H1117 L1130 454 H1078 L1085 432 H1137 Z"/>
+            <text id="heroLabs" x="1008" y="563" font-family="Arial Black, Arial, sans-serif" font-size="46" font-style="italic" font-weight="900" letter-spacing="7">LABS</text>
+          </defs>
+
+          <g filter="url(#wmGlow)" stroke-linejoin="round">
+            <use href="#heroWordmark" fill="url(#wmGold)" stroke="#2C1700" stroke-width="9" paint-order="stroke fill"/>
+            <use href="#heroWordmark" fill="url(#wmGold)" stroke="url(#wmGoldEdge)" stroke-width="4.5" paint-order="stroke fill"/>
+            <use href="#heroWordmark" fill="none" stroke="#FFFBD8" stroke-width=".9"/>
+
+            <use href="#heroLabs" fill="url(#wmGold)" stroke="#2C1700" stroke-width="4.5" paint-order="stroke fill"/>
+            <use href="#heroLabs" fill="url(#wmGold)" stroke="url(#wmGoldEdge)" stroke-width="2.4" paint-order="stroke fill"/>
+            <use href="#heroLabs" fill="none" stroke="#FFF9D0" stroke-width=".55"/>
+          </g>
+        </svg>
         <span class="rule"></span>
         <span class="sub" data-en="Research peptides · USA" data-es="Péptidos de investigación · EE. UU.">Research peptides · USA</span>
       </div>
@@ -1164,22 +1181,39 @@
   var farBuf, midBuf, farBlur, midBlur, farCtx, midCtx, farBlurCtx, midBlurCtx;
   var LAYER_SCALE = 0.36;
 
-  /* --- one shaded sphere sprite per hue --- */
-  var HUES = 18;
+  /* --- turquoise-blue and gold DNA palette requested by the client --- */
+  var DNA_PALETTE = [
+    { hi:'#F5FFFF', light:'#A9FFF7', mid:'#35E1D5', deep:'#087D83', shadow:'#032E37', halo:[53,225,213] },
+    { hi:'#EFFFFF', light:'#78F5EC', mid:'#18C9C4', deep:'#066B77', shadow:'#022A35', halo:[24,201,196] },
+    { hi:'#FFFCE5', light:'#FFE99A', mid:'#F2C548', deep:'#A96808', shadow:'#3B2100', halo:[242,197,72] },
+    { hi:'#F3FFFF', light:'#9AFBF3', mid:'#27D5CF', deep:'#0A7880', shadow:'#032C37', halo:[39,213,207] },
+    { hi:'#FFF8D6', light:'#FFDC70', mid:'#E8AD24', deep:'#915405', shadow:'#321B00', halo:[232,173,36] },
+    { hi:'#E8FFFF', light:'#6CEAE7', mid:'#13B7BE', deep:'#075D70', shadow:'#022636', halo:[19,183,190] },
+    { hi:'#F4FFFF', light:'#A5FFF6', mid:'#37DDD3', deep:'#087681', shadow:'#022A35', halo:[55,221,211] },
+    { hi:'#FFFFE8', light:'#FFF0A6', mid:'#F7CD55', deep:'#B2740B', shadow:'#422600', halo:[247,205,85] },
+    { hi:'#EFFFFF', light:'#83F8F0', mid:'#1FCAC8', deep:'#056B79', shadow:'#022A35', halo:[31,202,200] },
+    { hi:'#FFF9D9', light:'#FFE17D', mid:'#E9B32C', deep:'#945806', shadow:'#321B00', halo:[233,179,44] },
+    { hi:'#E9FFFF', light:'#71EFEA', mid:'#14BFC2', deep:'#056476', shadow:'#022735', halo:[20,191,194] },
+    { hi:'#FFFCE5', light:'#FFE998', mid:'#F1C246', deep:'#A46507', shadow:'#382000', halo:[241,194,70] }
+  ];
+  var HUES = DNA_PALETTE.length;
   var SPHERES = [], HALOS = [];
+  function rgba(rgb, alpha) {
+    return 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + alpha + ')';
+  }
   (function () {
     for (var i = 0; i < HUES; i++) {
-      var hue = Math.round(i * 360 / HUES);
+      var color = DNA_PALETTE[i];
       var c = document.createElement('canvas');
       c.width = c.height = 128;
       var s = c.getContext('2d');
       var g = s.createRadialGradient(48, 42, 2, 64, 64, 62);
       g.addColorStop(0.00, '#FFFFFF');
-      g.addColorStop(0.14, 'hsl(' + hue + ',100%,92%)');
-      g.addColorStop(0.36, 'hsl(' + hue + ',95%,74%)');
-      g.addColorStop(0.64, 'hsl(' + hue + ',88%,54%)');
-      g.addColorStop(0.88, 'hsl(' + hue + ',80%,32%)');
-      g.addColorStop(1.00, 'hsl(' + hue + ',70%,12%)');
+      g.addColorStop(0.14, color.hi);
+      g.addColorStop(0.36, color.light);
+      g.addColorStop(0.64, color.mid);
+      g.addColorStop(0.88, color.deep);
+      g.addColorStop(1.00, color.shadow);
       s.fillStyle = g;
       s.beginPath(); s.arc(64, 64, 62, 0, Math.PI * 2); s.fill();
       var sp = s.createRadialGradient(46, 38, 0, 46, 38, 19);
@@ -1193,9 +1227,9 @@
       hc.width = hc.height = 64;
       var hs = hc.getContext('2d');
       var hg = hs.createRadialGradient(32, 32, 0, 32, 32, 32);
-      hg.addColorStop(0, 'hsla(' + hue + ',100%,80%,0.55)');
-      hg.addColorStop(0.4, 'hsla(' + hue + ',95%,60%,0.18)');
-      hg.addColorStop(1, 'hsla(' + hue + ',90%,50%,0)');
+      hg.addColorStop(0, rgba(color.halo, 0.58));
+      hg.addColorStop(0.4, rgba(color.halo, 0.20));
+      hg.addColorStop(1, rgba(color.halo, 0));
       hs.fillStyle = hg; hs.fillRect(0, 0, 64, 64);
       HALOS.push(hc);
     }
@@ -1259,9 +1293,10 @@
 
       var rot = rnd() * Math.PI;
       var alpha = 0.14 + rnd() * 0.22;
-      var hue = Math.round(rnd() * 360);
-      var stroke = 'hsla(' + hue + ',85%,68%,' + alpha.toFixed(3) + ')';
-      var fill = 'hsla(' + hue + ',90%,74%,' + (alpha * 1.6).toFixed(3) + ')';
+      var goldRing = rnd() > 0.62;
+      var ringRgb = goldRing ? [237,184,60] : [29,207,196];
+      var stroke = rgba(ringRgb, alpha.toFixed(3));
+      var fill = rgba(ringRgb, (alpha * 1.6).toFixed(3));
 
       var pts = [], bonds = [], dots = [], i, ang, x, y;
       for (i = 0; i < 6; i++) {
