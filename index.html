@@ -213,12 +213,70 @@
   .hero-cta{ display:flex; gap:14px; flex-wrap:wrap; }
 
   .hero-art{ position:relative; display:grid; place-items:center; min-height:340px; }
-  .emblem-wrap{ position:relative; width:min(100%, 460px); animation: float 9s ease-in-out infinite; }
-  .emblem{ width:100%; height:auto; display:block; filter: drop-shadow(0 24px 70px rgba(0,0,0,.75)); }
-  .emblem-photo{ position:absolute; left:10%; top:24.8%; width:80%; height:50.5%; object-fit:cover; z-index:1; }
-  .emblem text{ font-family: var(--font-display); font-weight:800; }
+
+  /* free-standing wordmark: no plate, no frame — just the letters, in gold
+     with a sheen that sweeps across them */
+  .lockup{
+    position:relative; width:min(100%, 560px); text-align:center;
+    animation: float 9s ease-in-out infinite;
+    /* promote to its own layer: without this the float re-rasterises the
+       glowing text every frame instead of just compositing it */
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+  /* pool of shadow so the letters hold up over the bright coil */
+  .lockup::before{
+    content:""; position:absolute; inset:-22% -16%; z-index:-1;
+    background: radial-gradient(66% 60% at 50% 47%,
+      rgba(5,6,10,.94), rgba(5,6,10,.74) 46%, rgba(5,6,10,.30) 68%, rgba(5,6,10,0) 84%);
+  }
+  .lockup .mark{
+    display:inline-block;
+    font-family:var(--font-display); font-weight:800; font-style:italic;
+    font-size: clamp(64px, 9.2vw, 138px); line-height:.92;
+    letter-spacing:-.035em; text-transform:uppercase;
+    /* static gradient: sweeping it repainted 138px text every frame and cost
+       ~6 fps, and the metal reads better fixed anyway */
+    /* vertical, like real gold leaf: every letter gets the highlight at the
+       top and the deep tone at the base — horizontal left some letters brown */
+    /* the glyphs only sample the middle of the box, so the whole ramp lives in
+       bright gold — no brown stops for the caps to land on */
+    background-image: linear-gradient(180deg,
+      #FFF8DC 0%, #FFE38F 12%, #FFCF52 28%, #F6B72E 44%,
+      #FFD361 56%, #FFE9A8 72%, #EFB52C 86%, #D09417 100%);
+    background-size: 100% 100%;
+    -webkit-background-clip:text; background-clip:text;
+    color:transparent; -webkit-text-fill-color:transparent;
+    /* drop-shadow, NOT text-shadow: with background-clip:text the gradient is
+       the element's background, and a text-shadow paints on top of it — that
+       is what was dulling the gold by ~23%. drop-shadow sits behind. */
+    filter:
+      drop-shadow(0 3px 0 rgba(48,28,3,.9))
+      drop-shadow(0 10px 26px rgba(0,0,0,.85))
+      drop-shadow(0 0 70px rgba(224,164,32,.6));
+  }
+  .lockup .mark sup{ font-size:.42em; vertical-align:.62em; letter-spacing:0; }
+  .lockup .labs{
+    display:block; margin-top:6px;
+    font-family:var(--font-display); font-weight:800; font-style:italic;
+    font-size: clamp(19px, 2.5vw, 34px); letter-spacing:.54em; text-indent:.54em;
+    text-transform:uppercase; color:#E6EAF2;
+    text-shadow:0 2px 14px rgba(0,0,0,.85), 0 0 30px rgba(199,204,212,.35);
+  }
+  .lockup .rule{
+    display:block; width:min(86%, 400px); height:1px; margin:26px auto 16px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .lockup .sub{
+    display:block; font-family:var(--font-mono);
+    font-size: clamp(10px, 1.05vw, 13px); letter-spacing:.4em; text-indent:.4em;
+    text-transform:uppercase; color:var(--gold-pale);
+    text-shadow:0 2px 12px rgba(0,0,0,.9);
+  }
   @keyframes float{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-10px);} }
-  @media (prefers-reduced-motion: reduce){ .emblem-wrap{ animation:none; } }
+  @media (prefers-reduced-motion: reduce){
+    .lockup{ animation:none; }
+  }
 
   /* ---------- trust strip ---------- */
   .trust{
@@ -447,18 +505,6 @@
     .feat{ max-width:none; width:100%; }
   }
 </style>
-<style>
-  /* preview-only: one screen, so the hero owns it and the menu is decorative */
-  .hero{ min-height: calc(100vh - 74px - 38px); display:flex; align-items:center; }
-  .hero-grid{ width:100%; }
-  .nav-links a, .brand, .hero-cta .btn, .nav .btn{ cursor:default; }
-  .preview-note{
-    text-align:center; padding:26px 24px 40px;
-    font-family:var(--font-mono); font-size:10.5px; letter-spacing:.2em;
-    text-transform:uppercase; color:#4E576B;
-  }
-  @media (max-width:940px){ .hero{ min-height:0; display:block; } }
-</style>
 
 <div class="ticker" id="ticker">
   <div class="wrap">
@@ -468,9 +514,10 @@
   </div>
   <button class="x" id="tickerClose" aria-label="Close">✕</button>
 </div>
+
 <header class="nav">
   <div class="wrap">
-    <a class="brand" aria-label="PEP-T+ Labs">
+    <a class="brand" href="#top" aria-label="PEP-T+ Labs">
       <svg viewBox="0 0 40 40" aria-hidden="true">
         <defs>
           <linearGradient id="navGold" x1="0" y1="0" x2="1" y2="1">
@@ -490,23 +537,24 @@
     <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menu"><span></span></button>
 
     <ul class="nav-links" id="navLinks">
-      <li><a class="is-active" data-en="Home" data-es="Inicio">Home</a></li>
-      <li><a data-en="Best sellers" data-es="Más vendidos">Best sellers</a></li>
-      <li><a data-en="Standard" data-es="Estándar">Standard</a></li>
-      <li><a data-en="Quality" data-es="Calidad">Quality</a></li>
-      <li><a data-en="Contact" data-es="Contacto">Contact</a></li>
+      <li><a class="is-active" href="#top" data-en="Home" data-es="Inicio">Home</a></li>
+      <li><a href="#best" data-en="Best sellers" data-es="Más vendidos">Best sellers</a></li>
+      <li><a href="#standard" data-en="Standard" data-es="Estándar">Standard</a></li>
+      <li><a href="#quality" data-en="Quality" data-es="Calidad">Quality</a></li>
+      <li><a href="#contact" data-en="Contact" data-es="Contacto">Contact</a></li>
     </ul>
 
     <button class="lang" id="langBtn" aria-label="Language">
       <span id="langLabel">EN</span><span class="caret" aria-hidden="true">▾</span>
     </button>
 
-    <a class="btn btn--gold">
+    <a class="btn btn--gold" href="#contact">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 3.5h3l2.4 11h10.4l2.2-8H7"/></svg>
       <span data-en="Place an order" data-es="Hacer pedido">Place an order</span>
     </a>
   </div>
 </header>
+
 <section class="hero" id="top">
   <div class="hexlayer" aria-hidden="true">
     <div class="strip"><div class="tile" id="hexTileA"></div><div class="tile" id="hexTileB"></div></div>
@@ -547,11 +595,11 @@
       </div>
 
       <div class="hero-cta">
-        <a class="btn btn--gold">
+        <a class="btn btn--gold" href="#best">
           <span data-en="Shop best sellers" data-es="Ver más vendidos">Shop best sellers</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
         </a>
-        <a class="btn btn--ghost">
+        <a class="btn btn--ghost" href="#standard">
           <span data-en="Learn more" data-es="Conocer más">Learn more</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
         </a>
@@ -559,109 +607,19 @@
     </div>
 
     <div class="hero-art">
-      <div class="emblem-wrap">
-        <!-- Drop a file named logo.png next to index.html and the real artwork
-             replaces the drawn one automatically; without it, the vector below shows. -->
-        <img class="emblem-photo" src="logo.png" alt="PEP-T+ Labs"
-             onload="var d=document.getElementById('drawnMark'); if(d) d.style.display='none'"
-             onerror="this.remove()">
-        <svg class="emblem" viewBox="0 0 640 420" role="img" aria-label="PEP-T+ Labs · Research peptides">
-      <defs>
-        <linearGradient id="emSilver" x1="0" y1="0" x2="0.7" y2="1">
-          <stop offset="0" stop-color="#5E636C"/>
-          <stop offset=".18" stop-color="#E9EDF2"/>
-          <stop offset=".38" stop-color="#9AA0A9"/>
-          <stop offset=".56" stop-color="#F4F7FA"/>
-          <stop offset=".78" stop-color="#767C86"/>
-          <stop offset="1" stop-color="#C9CED6"/>
-        </linearGradient>
-        <linearGradient id="emGold" x1="0" y1="0" x2="0.75" y2="1">
-          <stop offset="0" stop-color="#7E5211"/>
-          <stop offset=".22" stop-color="#E7B23C"/>
-          <stop offset=".44" stop-color="#F9EBBE"/>
-          <stop offset=".66" stop-color="#D29B2C"/>
-          <stop offset="1" stop-color="#8A5A14"/>
-        </linearGradient>
-        <linearGradient id="emFrame" x1="0" y1="0" x2="0.4" y2="1">
-          <stop offset="0" stop-color="#1C1821"/>
-          <stop offset=".5" stop-color="#0D0C11"/>
-          <stop offset="1" stop-color="#050506"/>
-        </linearGradient>
-        <radialGradient id="emPlateGold" cx="50%" cy="6%" r="92%">
-          <stop offset="0" stop-color="#FFE9A8"/>
-          <stop offset=".26" stop-color="#F3CE72"/>
-          <stop offset=".55" stop-color="#D9A32B"/>
-          <stop offset="1" stop-color="#9A6C16"/>
-        </radialGradient>
-        <radialGradient id="emSphere" cx="34%" cy="28%" r="72%">
-          <stop offset="0" stop-color="#FFF6D2"/>
-          <stop offset=".34" stop-color="#EFC25C"/>
-          <stop offset=".72" stop-color="#C8901F"/>
-          <stop offset="1" stop-color="#7C5310"/>
-        </radialGradient>
-        <clipPath id="emClip">
-          <path d="M96 104 H544 L576 136 V284 L544 316 H96 L64 284 V136 Z"/>
-        </clipPath>
-      </defs>
-
-      <!-- plaque -->
-      <path d="M56 8 H584 L632 56 V364 L584 412 H56 L8 364 V56 Z" fill="url(#emFrame)"/>
-      <path d="M56 8 H584 L632 56 V364 L584 412 H56 L8 364 V56 Z"
-            fill="none" stroke="url(#emSilver)" stroke-width="10"/>
-      <path d="M64 22 H576 L618 64 V356 L576 398 H64 L22 356 V64 Z"
-            fill="none" stroke="url(#emGold)" stroke-width="2.5"/>
-
-      <!-- the name engraved around the design -->
-      <text x="320" y="76" text-anchor="middle" font-size="34" letter-spacing="4"
-            fill="url(#emSilver)">PEP-T+ LABS</text>
-      <text x="320" y="374" text-anchor="middle" font-size="19" letter-spacing="7"
-            fill="url(#emGold)">RESEARCH PEPTIDES · USA</text>
-      <g fill="url(#emGold)">
-        <path d="M30 210 l9 -12 h13 l9 12 -9 12 h-13 Z"/>
-        <path d="M579 210 l9 -12 h13 l9 12 -9 12 h-13 Z"/>
-      </g>
-
-      <!-- gold plate carrying the mark -->
-      <path d="M96 104 H544 L576 136 V284 L544 316 H96 L64 284 V136 Z" fill="url(#emPlateGold)"/>
-      <g id="drawnMark" clip-path="url(#emClip)">
-        <!-- peptide chains weaving above and below the wordmark -->
-        <g stroke="#B8871F" stroke-width="6" stroke-linecap="round" opacity=".95">
-          <path d="M74 154 L124 126 L174 156 L226 122 L284 154 L340 124 L396 154 L450 122 L506 152 L560 128" fill="none"/>
-          <path d="M82 288 L138 266 L194 294 L250 264 L308 294 L366 266 L422 294 L478 264 L534 290" fill="none"/>
-          <path d="M124 126 L112 96 M284 154 L292 118 M396 154 L388 116 M194 294 L188 322 M366 266 L374 302"/>
-        </g>
-        <g fill="url(#emSphere)">
-          <circle cx="74" cy="154" r="11"/><circle cx="124" cy="126" r="14"/><circle cx="174" cy="156" r="10"/>
-          <circle cx="226" cy="122" r="15"/><circle cx="284" cy="154" r="12"/><circle cx="340" cy="124" r="14"/>
-          <circle cx="396" cy="154" r="11"/><circle cx="450" cy="122" r="15"/><circle cx="506" cy="152" r="11"/>
-          <circle cx="560" cy="128" r="13"/>
-          <circle cx="82" cy="288" r="12"/><circle cx="138" cy="266" r="14"/><circle cx="194" cy="294" r="10"/>
-          <circle cx="250" cy="264" r="15"/><circle cx="308" cy="294" r="12"/><circle cx="366" cy="266" r="14"/>
-          <circle cx="422" cy="294" r="10"/><circle cx="478" cy="264" r="15"/><circle cx="534" cy="290" r="12"/>
-          <circle cx="112" cy="96" r="8"/><circle cx="292" cy="118" r="7"/><circle cx="388" cy="116" r="8"/>
-          <circle cx="188" cy="322" r="7"/><circle cx="374" cy="302" r="8"/>
-        </g>
-
-        <!-- wordmark -->
-        <g transform="translate(320 244) skewX(-11) translate(-320 -244)">
-          <text x="322" y="252" text-anchor="middle" font-size="96" font-weight="800"
-                letter-spacing="-2" fill="#0A0A0A" opacity=".35">PEP-T+</text>
-          <text x="320" y="248" text-anchor="middle" font-size="96" font-weight="800"
-                letter-spacing="-2" fill="#08080A" stroke="#FFEFC0" stroke-width="1.4">PEP-T+</text>
-        </g>
-        <text x="500" y="286" text-anchor="middle" font-size="30" font-weight="800"
-              font-style="italic" letter-spacing="4" fill="#08080A">LABS</text>
-      </g>
-      <path d="M96 104 H544 L576 136 V284 L544 316 H96 L64 284 V136 Z"
-            fill="none" stroke="url(#emSilver)" stroke-width="5"/>
-    </svg>
+      <div class="lockup">
+        <span class="mark">PEP-T<sup>+</sup></span>
+        <span class="labs">Labs</span>
+        <span class="rule"></span>
+        <span class="sub" data-en="Research peptides · USA" data-es="Péptidos de investigación · EE. UU.">Research peptides · USA</span>
       </div>
     </div>
   </div>
 </section>
+
 <section class="band" style="padding-block:0; margin-top:-18px; position:relative; z-index:3;">
   <div class="wrap">
-    <div class="trust">
+    <div class="trust reveal">
       <div>
         <span class="ico" style="color:var(--cyan)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3.5h6M12 3.5v4"/><path d="M7.5 21h9a2 2 0 0 0 1.7-3l-3.7-6V7.5h-5V12l-3.7 6a2 2 0 0 0 1.7 3Z"/></svg></span>
         <div>
@@ -693,7 +651,447 @@
     </div>
   </div>
 </section>
-<p class="preview-note">PEP-T+ Labs · Preview</p>
+
+<section class="band" id="categories">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-en="Our products" data-es="Nuestros productos">Our products</span>
+      <h2 data-en="Research peptide categories" data-es="Categorías de péptidos">Research peptide categories</h2>
+      <span class="rule"></span>
+    </div>
+    <div class="cats">
+      <article class="cat reveal" style="--c: var(--cyan)">
+        <div class="art" style="color:var(--cyan)">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M32 12c0 16 36 22 36 38S32 72 32 88"/><path d="M68 12c0 16-36 22-36 38s36 22 36 38"/><path d="M35 24h30M32 38h36M32 62h36M35 76h30" stroke-width="1.6" opacity=".65"/><g fill="currentColor" stroke="none"><circle cx="32" cy="12" r="3.4"/><circle cx="68" cy="12" r="3.4"/><circle cx="50" cy="50" r="4"/><circle cx="32" cy="88" r="3.4"/><circle cx="68" cy="88" r="3.4"/></g></svg>
+          <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 7v10L12 21l7.5-4V7Z"/><path d="M4.5 7 12 11l7.5-4M12 11v10"/></svg></span>
+        </div>
+        <div class="body">
+          <h3 data-en="Growth hormone secretagogues" data-es="Secretagogos de hormona de crecimiento">Growth hormone secretagogues</h3>
+          <p data-en="Support natural GH production and recovery." data-es="Apoyan la producción natural de GH y la recuperación.">Support natural GH production and recovery.</p>
+          <a class="go" href="#best">
+            <span data-en="View products" data-es="Ver productos">View products</span>
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+      <article class="cat reveal" style="--c: var(--purple)">
+        <div class="art" style="color:var(--purple)">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="50" cy="50" r="12"/><path d="M50 38V16M50 62v22M38 50H16M62 50h22M41 41 26 26M59 41l15-15M41 59l-15 15M59 59l15 15"/><g fill="currentColor" stroke="none"><circle cx="50" cy="14" r="3"/><circle cx="50" cy="86" r="3"/><circle cx="14" cy="50" r="3"/><circle cx="86" cy="50" r="3"/><circle cx="24" cy="24" r="2.6"/><circle cx="76" cy="24" r="2.6"/><circle cx="24" cy="76" r="2.6"/><circle cx="76" cy="76" r="2.6"/></g></svg>
+          <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 7v10L12 21l7.5-4V7Z"/><path d="M4.5 7 12 11l7.5-4M12 11v10"/></svg></span>
+        </div>
+        <div class="body">
+          <h3 data-en="Fat loss &amp; metabolic support" data-es="Pérdida de grasa y apoyo metabólico">Fat loss &amp; metabolic support</h3>
+          <p data-en="Targets metabolism, fat loss and energy." data-es="Enfocados en metabolismo, grasa y energía.">Targets metabolism, fat loss and energy.</p>
+          <a class="go" href="#best">
+            <span data-en="View products" data-es="Ver productos">View products</span>
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+      <article class="cat reveal" style="--c: var(--green)">
+        <div class="art" style="color:var(--green)">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M50 12 22 22v24c0 19 12 34 28 42 16-8 28-23 28-42V22Z"/><circle cx="50" cy="48" r="11"/><path d="M50 37v22M39 48h22" stroke-width="3"/></svg>
+          <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 7v10L12 21l7.5-4V7Z"/><path d="M4.5 7 12 11l7.5-4M12 11v10"/></svg></span>
+        </div>
+        <div class="body">
+          <h3 data-en="Recovery &amp; tissue repair" data-es="Recuperación y reparación de tejidos">Recovery &amp; tissue repair</h3>
+          <p data-en="Enhances healing, repair and endurance." data-es="Favorecen cicatrización, reparación y resistencia.">Enhances healing, repair and endurance.</p>
+          <a class="go" href="#best">
+            <span data-en="View products" data-es="Ver productos">View products</span>
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+      <article class="cat reveal" style="--c: var(--amber)">
+        <div class="art" style="color:var(--amber)">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M50 50 26 32M50 50l26-16M50 50 32 76M50 50l24 22M50 50V22"/><g fill="currentColor" stroke="none"><circle cx="50" cy="50" r="9"/><circle cx="24" cy="30" r="6.5"/><circle cx="78" cy="32" r="6"/><circle cx="30" cy="78" r="6"/><circle cx="76" cy="74" r="6.5"/><circle cx="50" cy="20" r="5.5"/></g></svg>
+          <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 7v10L12 21l7.5-4V7Z"/><path d="M4.5 7 12 11l7.5-4M12 11v10"/></svg></span>
+        </div>
+        <div class="body">
+          <h3 data-en="Performance enhancement" data-es="Mejora del rendimiento">Performance enhancement</h3>
+          <p data-en="Boost performance, focus and intensity." data-es="Impulsan rendimiento, foco e intensidad.">Boost performance, focus and intensity.</p>
+          <a class="go" href="#best">
+            <span data-en="View products" data-es="Ver productos">View products</span>
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+      <article class="cat reveal" style="--c: var(--red)">
+        <div class="art" style="color:var(--red)">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M50 44 34 30M50 44l18-12M40 60 26 72M60 60l16 12M50 44v16"/><g fill="currentColor" stroke="none"><circle cx="50" cy="42" r="10"/><circle cx="31" cy="27" r="7"/><circle cx="71" cy="29" r="6.5"/><circle cx="23" cy="75" r="7"/><circle cx="79" cy="75" r="7"/><circle cx="50" cy="66" r="6"/></g></svg>
+          <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 7v10L12 21l7.5-4V7Z"/><path d="M4.5 7 12 11l7.5-4M12 11v10"/></svg></span>
+        </div>
+        <div class="body">
+          <h3 data-en="Health &amp; wellness" data-es="Salud y bienestar">Health &amp; wellness</h3>
+          <p data-en="Supports overall health, longevity and vitality." data-es="Apoyan la salud general, longevidad y vitalidad.">Supports overall health, longevity and vitality.</p>
+          <a class="go" href="#best">
+            <span data-en="View products" data-es="Ver productos">View products</span>
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+      <article class="cat reveal" style="--c: var(--teal)">
+        <div class="art" style="color:var(--teal)">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M50 50 28 38M50 50l22-12M50 50v22M50 50 30 66"/><g fill="currentColor" stroke="none"><circle cx="50" cy="50" r="10"/><circle cx="26" cy="36" r="7"/><circle cx="74" cy="36" r="7"/><circle cx="50" cy="76" r="7"/><circle cx="28" cy="68" r="5.5"/></g></svg>
+          <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 7v10L12 21l7.5-4V7Z"/><path d="M4.5 7 12 11l7.5-4M12 11v10"/></svg></span>
+        </div>
+        <div class="body">
+          <h3 data-en="Other research peptides" data-es="Otros péptidos de investigación">Other research peptides</h3>
+          <p data-en="Explore additional research compounds." data-es="Explorá otros compuestos de investigación.">Explore additional research compounds.</p>
+          <a class="go" href="#best">
+            <span data-en="View products" data-es="Ver productos">View products</span>
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+    </div>
+
+    <div class="quality reveal">
+      <div class="seal">
+        <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <defs><linearGradient id="qg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#B07C24"/><stop offset=".5" stop-color="#F7E5AC"/><stop offset="1" stop-color="#C08A2A"/>
+          </linearGradient></defs>
+          <path d="M24 3 29 8h7l1 7 5 5-4 6 2 7-7 2-3 6-6-2-6 2-3-6-7-2 2-7-4-6 5-5 1-7h7Z" fill="none" stroke="url(#qg)" stroke-width="2"/>
+          <path d="m18 24 4 4 9-9" stroke="url(#qg)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h4 data-en="Quality guaranteed" data-es="Calidad garantizada">Quality guaranteed</h4>
+      </div>
+      <p data-en="At PEP-T+ Labs we are committed to providing the highest quality research peptides for laboratory use." data-es="En PEP-T+ Labs nos comprometemos a ofrecer péptidos de investigación de la más alta calidad para uso en laboratorio.">At PEP-T+ Labs we are committed to providing the highest quality research peptides for laboratory use.</p>
+      <div class="qstats">
+        <div class="qstat"><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><span><b>99%+</b><span data-en="Purity" data-es="Pureza">Purity</span></span></div>
+        <div class="qstat"><svg viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16M6 19V9l4-3 4 3v10M14 19v-6l4-2v8"/></svg><span><b>HPLC</b><span data-en="Verified" data-es="Verificado">Verified</span></span></div>
+        <div class="qstat"><svg viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18h3l2-9 3 13 3-16 2.5 12H21"/></svg><span><b data-en="Mass spec" data-es="Espectrometría">Mass spec</b><span data-en="Confirmed" data-es="Confirmada">Confirmed</span></span></div>
+        <div class="qstat"><svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 9h8M8 13h5"/></svg><span><b>COA</b><span data-en="Included" data-es="Incluido">Included</span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="best" style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-en="Best-selling products" data-es="Productos más vendidos">Best-selling products</span>
+      <h2 data-en="Catalog highlights" data-es="Destacados del catálogo">Catalog highlights</h2>
+      <span class="rule"></span>
+      <p class="muted" style="max-width:60ch" data-en="Lyophilized powder in sealed vials. Every unit ships with its certificate of analysis and a handling sheet for laboratory storage." data-es="Polvo liofilizado en viales sellados. Cada unidad se envía con su certificado de análisis y una ficha de manejo para almacenamiento en laboratorio.">Lyophilized powder in sealed vials. Every unit ships with its certificate of analysis and a handling sheet for laboratory storage.</p>
+    </div>
+    <div class="grid-products">
+      <article class="card reveal">
+        <div class="card-top">
+          <span class="tag" data-en="Best seller" data-es="Más vendido">Best seller</span>
+          <span class="tag tag--dim">CAS 137525-51-0</span>
+        </div>
+        <h3>BPC-157</h3>
+        <span class="cas">C<sub>62</sub>H<sub>98</sub>N<sub>16</sub>O<sub>22</sub> · 1419.5 g/mol</span>
+        <dl>
+          <dt data-en="Vial" data-es="Vial">Vial</dt><dd>5 mg</dd>
+          <dt data-en="Purity" data-es="Pureza">Purity</dt><dd>99.4%</dd>
+          <dt data-en="Form" data-es="Forma">Form</dt><dd data-en="Lyophilized" data-es="Liofilizado">Lyophilized</dd>
+        </dl>
+        <div class="card-foot">
+          <span class="price">$54<small data-en="per vial" data-es="por vial">per vial</small></span>
+          <a class="card-link" href="#contact"><span data-en="Order" data-es="Pedir">Order</span> <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="card-top">
+          <span class="tag" data-en="Best seller" data-es="Más vendido">Best seller</span>
+          <span class="tag tag--dim">CAS 77591-33-4</span>
+        </div>
+        <h3>TB-500</h3>
+        <span class="cas">Thymosin β4 fragment · 4963 g/mol</span>
+        <dl>
+          <dt data-en="Vial" data-es="Vial">Vial</dt><dd>5 mg</dd>
+          <dt data-en="Purity" data-es="Pureza">Purity</dt><dd>99.1%</dd>
+          <dt data-en="Form" data-es="Forma">Form</dt><dd data-en="Lyophilized" data-es="Liofilizado">Lyophilized</dd>
+        </dl>
+        <div class="card-foot">
+          <span class="price">$58<small data-en="per vial" data-es="por vial">per vial</small></span>
+          <a class="card-link" href="#contact"><span data-en="Order" data-es="Pedir">Order</span> <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="card-top">
+          <span class="tag tag--dim" data-en="In stock" data-es="En stock">In stock</span>
+          <span class="tag tag--dim">CAS 170851-70-4</span>
+        </div>
+        <h3>Ipamorelin</h3>
+        <span class="cas">C<sub>38</sub>H<sub>49</sub>N<sub>9</sub>O<sub>5</sub> · 711.9 g/mol</span>
+        <dl>
+          <dt data-en="Vial" data-es="Vial">Vial</dt><dd>5 mg</dd>
+          <dt data-en="Purity" data-es="Pureza">Purity</dt><dd>99.3%</dd>
+          <dt data-en="Form" data-es="Forma">Form</dt><dd data-en="Lyophilized" data-es="Liofilizado">Lyophilized</dd>
+        </dl>
+        <div class="card-foot">
+          <span class="price">$46<small data-en="per vial" data-es="por vial">per vial</small></span>
+          <a class="card-link" href="#contact"><span data-en="Order" data-es="Pedir">Order</span> <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="card-top">
+          <span class="tag tag--dim" data-en="In stock" data-es="En stock">In stock</span>
+          <span class="tag tag--dim">CAS 863288-34-0</span>
+        </div>
+        <h3>CJC-1295 (No DAC)</h3>
+        <span class="cas">C<sub>152</sub>H<sub>252</sub>N<sub>44</sub>O<sub>42</sub> · 3367.9 g/mol</span>
+        <dl>
+          <dt data-en="Vial" data-es="Vial">Vial</dt><dd>2 mg</dd>
+          <dt data-en="Purity" data-es="Pureza">Purity</dt><dd>98.9%</dd>
+          <dt data-en="Form" data-es="Forma">Form</dt><dd data-en="Lyophilized" data-es="Liofilizado">Lyophilized</dd>
+        </dl>
+        <div class="card-foot">
+          <span class="price">$49<small data-en="per vial" data-es="por vial">per vial</small></span>
+          <a class="card-link" href="#contact"><span data-en="Order" data-es="Pedir">Order</span> <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="card-top">
+          <span class="tag tag--dim" data-en="In stock" data-es="En stock">In stock</span>
+          <span class="tag tag--dim">CAS 89030-95-5</span>
+        </div>
+        <h3>GHK-Cu</h3>
+        <span class="cas">Copper tripeptide-1 · 403.9 g/mol</span>
+        <dl>
+          <dt data-en="Vial" data-es="Vial">Vial</dt><dd>50 mg</dd>
+          <dt data-en="Purity" data-es="Pureza">Purity</dt><dd>99.2%</dd>
+          <dt data-en="Form" data-es="Forma">Form</dt><dd data-en="Lyophilized" data-es="Liofilizado">Lyophilized</dd>
+        </dl>
+        <div class="card-foot">
+          <span class="price">$42<small data-en="per vial" data-es="por vial">per vial</small></span>
+          <a class="card-link" href="#contact"><span data-en="Order" data-es="Pedir">Order</span> <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="card-top">
+          <span class="tag tag--dim" data-en="In stock" data-es="En stock">In stock</span>
+          <span class="tag tag--dim">CAS 307297-39-8</span>
+        </div>
+        <h3>Epithalon</h3>
+        <span class="cas">C<sub>14</sub>H<sub>22</sub>N<sub>4</sub>O<sub>9</sub> · 390.3 g/mol</span>
+        <dl>
+          <dt data-en="Vial" data-es="Vial">Vial</dt><dd>10 mg</dd>
+          <dt data-en="Purity" data-es="Pureza">Purity</dt><dd>99.0%</dd>
+          <dt data-en="Form" data-es="Forma">Form</dt><dd data-en="Lyophilized" data-es="Liofilizado">Lyophilized</dd>
+        </dl>
+        <div class="card-foot">
+          <span class="price">$44<small data-en="per vial" data-es="por vial">per vial</small></span>
+          <a class="card-link" href="#contact"><span data-en="Order" data-es="Pedir">Order</span> <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+    </div>
+    <div class="catalog-note reveal">
+      <span data-en="Also stocked: Semax, Selank, Thymosin α1, custom blends, bacteriostatic water and laboratory consumables." data-es="También disponibles: Semax, Selank, Timosina α1, mezclas personalizadas, agua bacteriostática y consumibles de laboratorio.">Also stocked: Semax, Selank, Thymosin α1, custom blends, bacteriostatic water and laboratory consumables.</span>
+      <a class="btn btn--ghost" href="#contact" data-en="Request the full price list" data-es="Pedir la lista completa">Request the full price list</a>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="standard">
+  <div class="wrap">
+    <div class="split">
+      <div class="reveal">
+        <span class="eyebrow" data-en="The PEP-T+ standard" data-es="El estándar PEP-T+">The PEP-T+ standard</span>
+        <h2 style="margin:14px 0 18px" data-en="Logistics engineered for demanding labs" data-es="Logística diseñada para laboratorios exigentes">Logistics engineered for demanding labs</h2>
+        <p class="muted" data-en="We are not merely distributors. Our advantage is a direct, personal channel: no ticket queues, no procurement bureaucracy, no guessing when a shipment will move. You get a predictable process and a person who answers." data-es="No somos simples distribuidores. Nuestra ventaja es un canal directo y personal: sin colas de tickets, sin burocracia de compras, sin adivinar cuándo sale un envío. Obtenés un proceso predecible y una persona que responde.">We are not merely distributors. Our advantage is a direct, personal channel: no ticket queues, no procurement bureaucracy, no guessing when a shipment will move. You get a predictable process and a person who answers.</p>
+
+        <ul class="checklist">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg><span data-en="U.S.-based operations center" data-es="Centro de operaciones en EE. UU.">U.S.-based operations center</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg><span data-en="Discreet, unbranded outer packaging" data-es="Embalaje exterior discreto y sin marca">Discreet, unbranded outer packaging</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg><span data-en="Real-time order management and tracking" data-es="Gestión y rastreo de pedidos en tiempo real">Real-time order management and tracking</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg><span data-en="Bulk and repeat-order pricing for institutions" data-es="Precios por volumen y pedidos recurrentes para instituciones">Bulk and repeat-order pricing for institutions</span></li>
+        </ul>
+
+        <div class="notice">
+          <b data-en="Important notice" data-es="Aviso importante">Important notice</b>
+          <span data-en="All materials are supplied exclusively for laboratory research and development. Not for clinical use, human consumption or veterinary application. Purchasers are responsible for compliance with all applicable regulations." data-es="Todos los materiales se suministran exclusivamente para investigación y desarrollo de laboratorio. No aptos para uso clínico, consumo humano ni aplicación veterinaria. El comprador es responsable de cumplir la normativa aplicable.">All materials are supplied exclusively for laboratory research and development. Not for clinical use, human consumption or veterinary application. Purchasers are responsible for compliance with all applicable regulations.</span>
+        </div>
+      </div>
+
+      <figure class="vial-art reveal">
+        <svg viewBox="0 0 300 300" role="img" aria-label="Vial and molecular chain illustration">
+          <defs>
+            <linearGradient id="vGold" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#8A5A14"/><stop offset=".4" stop-color="#E7B23C"/>
+              <stop offset=".62" stop-color="#F7E5AC"/><stop offset="1" stop-color="#7E5211"/>
+            </linearGradient>
+            <linearGradient id="vSilver" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#6C727C"/><stop offset=".5" stop-color="#E4E8EE"/><stop offset="1" stop-color="#767C86"/>
+            </linearGradient>
+          </defs>
+          <g stroke="#38BDF8" stroke-width="1.5" fill="none" opacity=".55">
+            <path d="M22 96 66 62 118 88 150 44"/><path d="M186 60 232 84 268 54"/>
+            <path d="M30 226 74 250 122 232"/><path d="M198 236 244 214 278 240"/>
+          </g>
+          <g fill="#38BDF8" opacity=".75">
+            <circle cx="22" cy="96" r="5"/><circle cx="66" cy="62" r="7"/><circle cx="118" cy="88" r="5"/>
+            <circle cx="150" cy="44" r="8"/><circle cx="186" cy="60" r="5"/><circle cx="232" cy="84" r="7"/>
+            <circle cx="268" cy="54" r="5"/><circle cx="30" cy="226" r="6"/><circle cx="74" cy="250" r="8"/>
+            <circle cx="122" cy="232" r="5"/><circle cx="198" cy="236" r="6"/><circle cx="244" cy="214" r="7"/>
+            <circle cx="278" cy="240" r="5"/>
+          </g>
+          <g transform="translate(150 152) scale(1.22)">
+            <rect x="-30" y="-70" width="60" height="22" rx="3" fill="url(#vSilver)"/>
+            <rect x="-25" y="-48" width="50" height="12" fill="#232B40"/>
+            <path d="M-28 -36 h56 v78 a16 16 0 0 1 -16 16 h-24 a16 16 0 0 1 -16 -16 Z" fill="rgba(231,178,60,.10)" stroke="url(#vSilver)" stroke-width="2"/>
+            <path d="M-22 22 h44 v20 a12 12 0 0 1 -12 12 h-20 a12 12 0 0 1 -12 -12 Z" fill="url(#vGold)" opacity=".6"/>
+            <rect x="-16" y="-24" width="6" height="52" fill="#FFFFFF" opacity=".14"/>
+          </g>
+        </svg>
+        <figcaption class="vial-caption">
+          <span data-en="Lot PT-2408-A · 5 mg" data-es="Lote PT-2408-A · 5 mg">Lot PT-2408-A · 5 mg</span>
+          <span data-en="HPLC 99.4% · MS confirmed" data-es="HPLC 99.4% · MS confirmado">HPLC 99.4% · MS confirmed</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="quality" style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-en="Verification chain" data-es="Cadena de verificación">Verification chain</span>
+      <h2 data-en="Four checks before a vial ships" data-es="Cuatro controles antes de enviar un vial">Four checks before a vial ships</h2>
+      <span class="rule"></span>
+    </div>
+    <div class="steps reveal">
+      <div class="step">
+        <span class="num">01</span>
+        <h3 data-en="Source qualification" data-es="Calificación de origen">Source qualification</h3>
+        <p data-en="Synthesis partners are audited for facility standards and consistency before a single order is placed." data-es="Los socios de síntesis se auditan por estándares de instalación y consistencia antes de colocar un pedido.">Synthesis partners are audited for facility standards and consistency before a single order is placed.</p>
+      </div>
+      <div class="step">
+        <span class="num">02</span>
+        <h3 data-en="Controlled synthesis" data-es="Síntesis controlada">Controlled synthesis</h3>
+        <p data-en="Solid-phase peptide synthesis under GMP-aligned protocols, with in-process controls at each coupling stage." data-es="Síntesis de péptidos en fase sólida bajo protocolos alineados a GMP, con controles en proceso en cada acoplamiento.">Solid-phase peptide synthesis under GMP-aligned protocols, with in-process controls at each coupling stage.</p>
+      </div>
+      <div class="step">
+        <span class="num">03</span>
+        <h3 data-en="HPLC + mass spec" data-es="HPLC + espectrometría">HPLC + mass spec</h3>
+        <p data-en="Purity by reverse-phase HPLC and identity by mass spectrometry, run by an independent laboratory on every lot." data-es="Pureza por HPLC de fase reversa e identidad por espectrometría de masas, en un laboratorio independiente y en cada lote.">Purity by reverse-phase HPLC and identity by mass spectrometry, run by an independent laboratory on every lot.</p>
+      </div>
+      <div class="step">
+        <span class="num">04</span>
+        <h3 data-en="Cold-chain dispatch" data-es="Despacho en cadena de frío">Cold-chain dispatch</h3>
+        <p data-en="Vials are sealed, logged and shipped in insulated packaging with the matching COA in the box." data-es="Los viales se sellan, registran y envían en embalaje aislado con el COA correspondiente dentro de la caja.">Vials are sealed, logged and shipped in insulated packaging with the matching COA in the box.</p>
+      </div>
+    </div>
+
+    <div class="split" style="margin-top:56px">
+      <div class="reveal">
+        <span class="eyebrow" data-en="Questions" data-es="Preguntas">Questions</span>
+        <h2 style="margin-top:14px" data-en="Before you order" data-es="Antes de pedir">Before you order</h2>
+      </div>
+      <div class="faq reveal">
+        <details open>
+          <summary data-en="Do all products include a certificate of analysis?" data-es="¿Todos los productos incluyen certificado de análisis?">Do all products include a certificate of analysis?</summary>
+          <p data-en="Yes. Every vial ships with the COA for its exact lot, including the HPLC chromatogram and mass spectrometry result. Digital copies are sent with the tracking email." data-es="Sí. Cada vial se envía con el COA de su lote exacto, incluyendo el cromatograma HPLC y el resultado de espectrometría de masas. Las copias digitales se envían junto con el correo de rastreo.">Yes. Every vial ships with the COA for its exact lot, including the HPLC chromatogram and mass spectrometry result. Digital copies are sent with the tracking email.</p>
+        </details>
+        <details>
+          <summary data-en="How should material be stored on arrival?" data-es="¿Cómo se debe almacenar el material al llegar?">How should material be stored on arrival?</summary>
+          <p data-en="Lyophilized powder is stable at 2–8 °C and should be kept sealed, dry and away from light. Long-term storage is best at −20 °C. A handling sheet is included in every shipment." data-es="El polvo liofilizado es estable a 2–8 °C y debe mantenerse sellado, seco y protegido de la luz. Para almacenamiento prolongado, −20 °C. Cada envío incluye una ficha de manejo.">Lyophilized powder is stable at 2–8 °C and should be kept sealed, dry and away from light. Long-term storage is best at −20 °C. A handling sheet is included in every shipment.</p>
+        </details>
+        <details>
+          <summary data-en="Which shipping and payment methods are available?" data-es="¿Qué métodos de envío y pago hay disponibles?">Which shipping and payment methods are available?</summary>
+          <p data-en="Tracked priority shipping across the 50 states, with same-day dispatch on orders confirmed before 2 PM ET. Payment by bank transfer, card or crypto; institutional purchase orders are accepted on request." data-es="Envío prioritario con rastreo a los 50 estados, con despacho el mismo día en pedidos confirmados antes de las 2 PM ET. Pago por transferencia, tarjeta o cripto; se aceptan órdenes de compra institucionales bajo solicitud.">Tracked priority shipping across the 50 states, with same-day dispatch on orders confirmed before 2 PM ET. Payment by bank transfer, card or crypto; institutional purchase orders are accepted on request.</p>
+        </details>
+        <details>
+          <summary data-en="Can you supply bulk quantities or custom blends?" data-es="¿Pueden suministrar volumen o mezclas personalizadas?">Can you supply bulk quantities or custom blends?</summary>
+          <p data-en="Yes. Send the compound, quantity and target purity and we will return a quote with lead time, typically within one business day." data-es="Sí. Envianos el compuesto, la cantidad y la pureza objetivo y te devolvemos una cotización con tiempo de entrega, normalmente en un día hábil.">Yes. Send the compound, quantity and target purity and we will return a quote with lead time, typically within one business day.</p>
+        </details>
+        <details>
+          <summary data-en="Who can buy from PEP-T+ Labs?" data-es="¿Quién puede comprar en PEP-T+ Labs?">Who can buy from PEP-T+ Labs?</summary>
+          <p data-en="Sales are limited to qualified research professionals and institutions, for laboratory research use only. We do not provide dosing guidance and our products are not intended for human or animal use." data-es="Las ventas se limitan a profesionales e instituciones de investigación calificados, únicamente para uso en investigación de laboratorio. No damos indicaciones de dosificación y nuestros productos no están destinados a uso humano ni animal.">Sales are limited to qualified research professionals and institutions, for laboratory research use only. We do not provide dosing guidance and our products are not intended for human or animal use.</p>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="contact" style="background:radial-gradient(70% 100% at 15% 0%, rgba(76,125,247,.10), transparent 62%), var(--bg)">
+  <div class="wrap">
+    <div class="split">
+      <div class="reveal">
+        <span class="eyebrow" data-en="Contact" data-es="Contacto">Contact</span>
+        <h2 style="margin-top:14px" data-en="Take your results to the next level" data-es="Llevá tus resultados al siguiente nivel">Take your results to the next level</h2>
+        <p class="muted" style="margin-top:16px; max-width:46ch" data-en="Send the compound and quantity you need. You will get availability, price and lead time — no forms, no waiting queue." data-es="Envianos el compuesto y la cantidad que necesitás. Vas a recibir disponibilidad, precio y tiempo de entrega, sin formularios ni colas de espera.">Send the compound and quantity you need. You will get availability, price and lead time — no forms, no waiting queue.</p>
+        <p class="muted" style="margin-top:14px; font-size:14px" data-en="Support hours: Monday to Friday, 9 AM – 6 PM ET." data-es="Horario de atención: lunes a viernes, 9 AM – 6 PM ET.">Support hours: Monday to Friday, 9 AM – 6 PM ET.</p>
+      </div>
+
+      <ul class="channels reveal">
+        <li><a href="mailto:orders@pept-labs.com">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="m3 6 9 6 9-6"/></svg></span>
+          <span><span class="lbl" data-en="Email" data-es="Correo">Email</span><span class="val">orders@pept-labs.com</span></span>
+          <span class="go" aria-hidden="true">&gt;&gt;&gt;</span>
+        </a></li>
+        <li><a href="https://wa.me/10000000000" target="_blank" rel="noopener noreferrer">
+          <span class="ico" style="color:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.7-5.2A8.5 8.5 0 1 1 21 11.5Z"/><path d="M8.6 9.2c.3 2.6 3.6 5.9 6.2 6.2l1.2-1.4-2-1.2-1 .8c-1-.5-2-1.5-2.5-2.5l.8-1L10 8.1Z"/></svg></span>
+          <span><span class="lbl">WhatsApp</span><span class="val" data-en="Direct chat with the desk" data-es="Chat directo con el equipo">Direct chat with the desk</span></span>
+          <span class="go" aria-hidden="true">&gt;&gt;&gt;</span>
+        </a></li>
+        <li><a href="https://t.me/peptlabs" target="_blank" rel="noopener noreferrer">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 4.3 2.8 11.4l5.1 1.7 1.9 5.6 2.8-3.3 4.3 3.2Z"/><path d="m7.9 13.1 9.6-6.5-6.9 8"/></svg></span>
+          <span><span class="lbl">Telegram</span><span class="val">@peptlabs</span></span>
+          <span class="go" aria-hidden="true">&gt;&gt;&gt;</span>
+        </a></li>
+        <li><a href="mailto:orders@pept-labs.com?subject=Bulk%20quote%20request">
+          <span class="ico" style="color:var(--gold)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5Z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></svg></span>
+          <span><span class="lbl" data-en="Bulk desk" data-es="Mayoreo">Bulk desk</span><span class="val" data-en="Volume and institutional quotes" data-es="Cotizaciones por volumen e institucionales">Volume and institutional quotes</span></span>
+          <span class="go" aria-hidden="true">&gt;&gt;&gt;</span>
+        </a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="about">
+        <a class="brand" href="#top" style="margin-bottom:16px">
+          <svg viewBox="0 0 40 40" aria-hidden="true">
+            <defs><linearGradient id="fGold" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#B07C24"/><stop offset=".45" stop-color="#F7E5AC"/><stop offset="1" stop-color="#C08A2A"/>
+            </linearGradient></defs>
+            <path d="M13 2 H27 L38 13 V27 L27 38 H13 L2 27 V13 Z" fill="none" stroke="url(#fGold)" stroke-width="1.8"/>
+            <path d="M9 26 L16 15 L24 21 L31 11" fill="none" stroke="url(#fGold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <g fill="url(#fGold)"><circle cx="9" cy="26" r="2.2"/><circle cx="16" cy="15" r="2.6"/><circle cx="24" cy="21" r="2.2"/><circle cx="31" cy="11" r="2.6"/></g>
+          </svg>
+          <span><span class="brand-name">PEP-T+</span><span class="brand-sub">Labs</span></span>
+        </a>
+        <p class="disclaimer" data-en="All products sold by PEP-T+ Labs are intended exclusively for laboratory research. They are not drugs, foods or cosmetics, and are not for human or veterinary use. Statements on this site have not been evaluated by the FDA." data-es="Todos los productos vendidos por PEP-T+ Labs están destinados exclusivamente a investigación de laboratorio. No son medicamentos, alimentos ni cosméticos, y no son para uso humano ni veterinario. Las afirmaciones de este sitio no han sido evaluadas por la FDA.">All products sold by PEP-T+ Labs are intended exclusively for laboratory research. They are not drugs, foods or cosmetics, and are not for human or veterinary use. Statements on this site have not been evaluated by the FDA.</p>
+      </div>
+      <div>
+        <h4 data-en="Products" data-es="Productos">Products</h4>
+        <ul>
+          <li><a href="#categories" data-en="Categories" data-es="Categorías">Categories</a></li>
+          <li><a href="#best" data-en="Best sellers" data-es="Más vendidos">Best sellers</a></li>
+          <li><a href="#contact" data-en="Full price list" data-es="Lista de precios">Full price list</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en="Company" data-es="Empresa">Company</h4>
+        <ul>
+          <li><a href="#standard" data-en="The standard" data-es="El estándar">The standard</a></li>
+          <li><a href="#quality" data-en="Quality" data-es="Calidad">Quality</a></li>
+          <li><a href="#quality" data-en="FAQ" data-es="Preguntas">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en="Reach us" data-es="Contacto">Reach us</h4>
+        <ul>
+          <li><a href="mailto:orders@pept-labs.com">orders@pept-labs.com</a></li>
+          <li><a href="https://t.me/peptlabs" target="_blank" rel="noopener noreferrer">Telegram · @peptlabs</a></li>
+          <li><a href="https://wa.me/10000000000" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 PEP-T+ Labs</span>
+      <span data-en="Research use only · United States" data-es="Solo para investigación · Estados Unidos">Research use only · United States</span>
+    </div>
+  </div>
+</footer>
 <script>
 (function () {
   'use strict';
@@ -1075,5 +1473,6 @@
   start();
 })();
 </script>
+
 </body>
 </html>
