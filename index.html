@@ -3,492 +3,113 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="PEP-T+ Labs — high-purity research peptides verified by HPLC and mass spectrometry, shipped from the USA with lot-matched documentation. Research use only.">
 <meta name="theme-color" content="#05060A">
-<meta property="og:title" content="PEP-T+ Labs">
-<meta property="og:description" content="Advanced science. Real results. High-purity research peptides, verified and shipped from the USA.">
-<meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='%2305060A'/%3E%3Cg fill='none' stroke='%23E7B23C' stroke-width='2'%3E%3Cpath d='M9 26 L16 15 L24 21 L31 11' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3Cg fill='%23E7B23C'%3E%3Ccircle cx='9' cy='26' r='2.6'/%3E%3Ccircle cx='16' cy='15' r='3'/%3E%3Ccircle cx='24' cy='21' r='2.6'/%3E%3Ccircle cx='31' cy='11' r='3'/%3E%3C/g%3E%3C/svg%3E">
-<title>PEP-T+ Labs</title>
-</head>
-<body>
-
+<title>PEP-T+ Labs — Hero Preview</title>
 <style>
-  /* ============================================================
-     PEP-T+ LABS — obsidian ground, spectral accents, gold brand
-     ============================================================ */
   :root{
-    --bg:        #05060A;
-    --bg-2:      #070910;
-    --panel:     #0A0D15;
-    --panel-2:   #0E1220;
-    --line:      #1A2032;
-    --line-2:    #232B40;
-    --txt:       #C7D0E2;
-    --dim:       #78849B;
-    --white:     #F4F7FF;
+    --bg:#05060A; --panel:#0A0D15; --line:#1A2032; --line-2:#232B40;
+    --txt:#C7D0E2; --dim:#78849B; --white:#F4F7FF;
+    --gold:#E7B23C; --gold-pale:#F7E5AC; --cyan:#38BDF8;
+    --purple:#A855F7; --violet:#8B5CF6; --green:#22C55E; --red:#F04E5E;
+    --font-display:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    --font-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --font-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --col:1180px;
+    --gold-grad:linear-gradient(100deg,#B07C24 0%,#E7B23C 26%,#F7E5AC 46%,#E7B23C 68%,#C08A2A 100%);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:var(--font-body);font-size:16px;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  img,svg,canvas{display:block;max-width:100%}
+  a{color:var(--cyan);text-decoration:none}
+  button,a{font:inherit}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:3px}
+  .wrap{width:100%;max-width:var(--col);margin-inline:auto;padding-inline:24px}
+  h1,h4{font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:-.02em;line-height:1.04;color:var(--white)}
+  .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+  .band{padding-block:56px}
 
-    --gold:      #E7B23C;
-    --gold-pale: #F7E5AC;
-    --gold-deep: #8A5A14;
-    --silver:    #C7CCD4;
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--font-display);font-weight:800;text-transform:uppercase;font-size:12.5px;letter-spacing:.1em;padding:15px 24px;border-radius:8px;border:1px solid transparent;cursor:pointer;transition:.22s ease}
+  .btn svg{width:15px;height:15px}
+  .btn--gold{background:var(--gold-grad);color:#14100A;box-shadow:0 10px 30px -14px rgba(231,178,60,.9)}
+  .btn--gold:hover{transform:translateY(-2px);box-shadow:0 16px 34px -14px rgba(231,178,60,1)}
+  .btn--ghost{border-color:var(--line-2);color:var(--white);background:rgba(255,255,255,.02)}
+  .btn--ghost:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-2px)}
 
-    --cyan:   #38BDF8;
-    --blue:   #4C7DF7;
-    --violet: #8B5CF6;
-    --purple: #A855F7;
-    --green:  #22C55E;
-    --amber:  #F59E0B;
-    --red:    #F04E5E;
-    --teal:   #2DD4BF;
+  .ticker{background:#000;border-bottom:1px solid #14192A;font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);padding:9px 0;position:relative}
+  .ticker .wrap{display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap;text-align:center}
+  .ticker b{color:var(--gold);font-weight:400}
+  .ticker .flag{font-size:13px;letter-spacing:0}
+  .ticker .x{position:absolute;right:18px;top:50%;transform:translateY(-50%);background:none;border:0;color:var(--dim);font-size:14px;cursor:pointer;padding:4px}
 
-    --font-display: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
-    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Liberation Sans", sans-serif;
-    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  .nav{position:sticky;top:0;z-index:60;background:rgba(5,6,10,.9);backdrop-filter:blur(14px);border-bottom:1px solid #131829}
+  .nav .wrap{display:flex;align-items:center;gap:20px;height:74px}
+  .brand{display:flex;align-items:center;gap:11px;margin-right:auto}
+  .brand svg{width:36px;height:36px;flex:none}
+  .brand-name{font-family:var(--font-display);font-weight:800;font-style:italic;font-size:23px;letter-spacing:-.02em;text-transform:uppercase;line-height:1;background-image:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .brand-sub{font-family:var(--font-display);font-weight:700;font-size:10px;letter-spacing:.34em;color:#C7CCD4;text-transform:uppercase;display:block;margin-top:3px}
+  .nav-links{display:flex;gap:26px;list-style:none}
+  .nav-links a{font-family:var(--font-display);font-weight:700;text-transform:uppercase;font-size:12.5px;letter-spacing:.08em;color:var(--txt);padding-block:8px;position:relative}
+  .nav-links a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--gold);transition:right .3s ease}
+  .nav-links a:hover,.nav-links a.is-active{color:var(--white)}
+  .nav-links a:hover::after,.nav-links a.is-active::after{right:0}
+  .lang{display:flex;align-items:center;gap:6px;border:1px solid var(--line-2);border-radius:8px;padding:8px 12px;font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;color:var(--txt);background:rgba(255,255,255,.02);cursor:pointer}
+  .lang .caret{font-size:9px;color:var(--dim)}
+  .nav-toggle{display:none;background:transparent;border:1px solid var(--line-2);border-radius:8px;color:var(--txt);width:42px;height:38px;cursor:pointer;align-items:center;justify-content:center}
+  .nav-toggle span,.nav-toggle span::before,.nav-toggle span::after{content:"";display:block;width:16px;height:1.6px;background:currentColor;position:relative}
+  .nav-toggle span::before{position:absolute;top:-5px}
+  .nav-toggle span::after{position:absolute;top:5px}
 
-    --col: 1180px;
-    --gold-grad: linear-gradient(100deg, #B07C24 0%, #E7B23C 26%, #F7E5AC 46%, #E7B23C 68%, #C08A2A 100%);
-  }
+  .hero{position:relative;overflow:hidden;background:radial-gradient(110% 82% at 82% 28%,rgba(22,214,201,.16),transparent 58%),radial-gradient(90% 70% at 72% 56%,rgba(231,178,60,.11),transparent 64%),var(--bg)}
+  #lattice{position:absolute;inset:0 0 0 34%;width:66%;height:100%}
+  .hexlayer{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+  .hexlayer .strip{position:absolute;left:0;right:0;top:0;height:200%;animation:hexrise 80s linear infinite;will-change:transform}
+  .hexlayer .tile{height:50%;background-repeat:no-repeat;background-size:100% 100%}
+  @keyframes hexrise{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+  .hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(72% 78% at 72% 46%,transparent 42%,rgba(5,6,10,.72) 78%,#05060A 100%),radial-gradient(58% 62% at 10% 42%,rgba(5,6,10,.90),transparent 74%),radial-gradient(100% 46% at 50% 108%,#05060A,transparent 72%)}
+  .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:.92fr 1.18fr;gap:36px;align-items:center;padding-block:clamp(44px,5.5vw,76px)}
+  .hero h1{font-size:clamp(38px,5.6vw,66px);line-height:.98;margin:16px 0 20px}
+  .hero h1 .l2{background:linear-gradient(92deg,#5DD3FF,#4C7DF7);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero h1 .l3{background:linear-gradient(92deg,#4C7DF7,#A855F7);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.lede{font-size:16.5px;color:var(--txt);max-width:46ch}
+  .hero-features{display:flex;gap:26px;flex-wrap:wrap;margin:30px 0}
+  .feat{display:flex;gap:12px;align-items:flex-start;max-width:190px}
+  .feat .ring{width:42px;height:42px;border-radius:50%;border:1.5px solid currentColor;display:grid;place-items:center;flex:none;background:rgba(255,255,255,.02)}
+  .feat .ring svg{width:19px;height:19px}
+  .feat h4{font-size:12px;letter-spacing:.04em;line-height:1.3}
+  .feat p{font-size:12.5px;color:var(--dim);line-height:1.45;margin-top:4px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-art{position:relative;display:grid;place-items:center;min-height:340px}
+  .lockup{position:relative;width:min(112%,720px);margin-inline:auto;text-align:center;animation:float 9s ease-in-out infinite;will-change:transform}
+  .lockup::before{content:"";position:absolute;inset:-22% -16%;z-index:-1;background:radial-gradient(66% 60% at 50% 47%,rgba(5,6,10,.94),rgba(5,6,10,.74) 46%,rgba(5,6,10,.30) 68%,transparent 84%)}
+  .lockup .mark{display:block;width:100%;height:auto;filter:drop-shadow(0 10px 22px rgba(0,0,0,.72))}
+  .lockup .rule{display:block;width:min(86%,400px);height:1px;margin:26px auto 16px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+  .lockup .sub{display:block;font-family:var(--font-mono);font-size:clamp(10px,1.05vw,13px);letter-spacing:.4em;text-indent:.4em;text-transform:uppercase;color:var(--gold-pale);text-shadow:0 2px 12px rgba(0,0,0,.9)}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
-  *{ box-sizing:border-box; margin:0; padding:0; }
-  html{ scroll-behavior:smooth; }
-  body{
-    background: var(--bg);
-    color: var(--txt);
-    font-family: var(--font-body);
-    font-size: 16px;
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-  img, svg, canvas{ display:block; max-width:100%; }
-  a{ color: var(--cyan); text-decoration:none; }
-  a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visible{
-    outline:2px solid var(--cyan); outline-offset:3px; border-radius:3px;
-  }
+  .trust{border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,rgba(14,18,32,.9),rgba(8,10,18,.9));display:grid;grid-template-columns:repeat(4,1fr);overflow:hidden}
+  .trust>div{display:flex;gap:14px;padding:24px 22px;border-left:1px solid var(--line)}
+  .trust>div:first-child{border-left:0}
+  .trust .ico{width:34px;height:34px;flex:none}
+  .trust h4{font-size:12.5px;letter-spacing:.04em;line-height:1.3}
+  .trust p{font-size:12.5px;color:var(--dim);margin-top:5px;line-height:1.45}
 
-  .wrap{ width:100%; max-width:var(--col); margin-inline:auto; padding-inline:24px; }
-
-  h1,h2,h3,h4,.display{
-    font-family: var(--font-display);
-    font-weight:800; text-transform:uppercase;
-    letter-spacing:-.02em; line-height:1.04;
-    color: var(--white); text-wrap:balance;
+  @media(prefers-reduced-motion:reduce){.hexlayer .strip,.lockup{animation:none}}
+  @media(max-width:940px){
+    .hero-grid{grid-template-columns:1fr;gap:28px}.hero-art{order:-1;min-height:0}
+    #lattice{inset:0;width:100%}.trust{grid-template-columns:repeat(2,1fr)}
+    .trust>div:nth-child(3){border-left:0}.trust>div:nth-child(n+3){border-top:1px solid var(--line)}
   }
-  h2{ font-size: clamp(26px, 3.6vw, 40px); }
-  h3{ font-size:17px; letter-spacing:.01em; line-height:1.25; }
-
-  .eyebrow{
-    font-family: var(--font-mono); font-size:11px; letter-spacing:.26em;
-    text-transform:uppercase; color: var(--gold);
-  }
-  .muted{ color: var(--dim); }
-  .band{ padding-block: clamp(56px, 7vw, 92px); }
-  .section-head{ text-align:center; display:flex; flex-direction:column; gap:12px; align-items:center; margin-bottom:44px; }
-  .section-head .rule{ width:88px; height:2px; background:linear-gradient(90deg,transparent,var(--gold),transparent); }
-
-  /* ---------- buttons ---------- */
-  .btn{
-    display:inline-flex; align-items:center; justify-content:center; gap:10px;
-    font-family: var(--font-display); font-weight:800; text-transform:uppercase;
-    font-size:12.5px; letter-spacing:.1em; padding:15px 24px; border-radius:8px;
-    border:1px solid transparent; cursor:pointer;
-    transition: transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease, color .22s ease;
-  }
-  .btn svg{ width:15px; height:15px; }
-  .btn--gold{ background: var(--gold-grad); color:#14100A; box-shadow:0 10px 30px -14px rgba(231,178,60,.9); }
-  .btn--gold:hover{ transform:translateY(-2px); box-shadow:0 16px 34px -14px rgba(231,178,60,1); }
-  .btn--ghost{ border-color: var(--line-2); color: var(--white); background: rgba(255,255,255,.02); }
-  .btn--ghost:hover{ border-color: var(--cyan); color: var(--cyan); transform:translateY(-2px); }
-
-  /* ---------- announcement ---------- */
-  .ticker{
-    background:#000; border-bottom:1px solid #14192A;
-    font-family: var(--font-mono); font-size:11px; letter-spacing:.12em;
-    text-transform:uppercase; color: var(--dim); padding:9px 0; position:relative;
-  }
-  .ticker .wrap{ display:flex; gap:16px; justify-content:center; align-items:center; flex-wrap:wrap; text-align:center; }
-  .ticker b{ color: var(--gold); font-weight:400; }
-  .ticker .flag{ font-size:13px; letter-spacing:0; }
-  .ticker .x{
-    position:absolute; right:18px; top:50%; transform:translateY(-50%);
-    background:none; border:0; color:var(--dim); font-size:14px; cursor:pointer; line-height:1; padding:4px;
-  }
-  .ticker .x:hover{ color:var(--white); }
-
-  /* ---------- nav ---------- */
-  .nav{
-    position:sticky; top:0; z-index:60;
-    background: rgba(5,6,10,.9); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-    border-bottom:1px solid #131829;
-  }
-  .nav .wrap{ display:flex; align-items:center; gap:20px; height:74px; }
-  .brand{ display:flex; align-items:center; gap:11px; margin-right:auto; }
-  .brand svg{ width:36px; height:36px; flex:none; }
-  .brand-name{
-    font-family:var(--font-display); font-weight:800; font-style:italic;
-    font-size:23px; letter-spacing:-.02em; text-transform:uppercase; line-height:1;
-    background-image:var(--gold-grad); -webkit-background-clip:text; background-clip:text; color:transparent;
-  }
-  .brand-sub{
-    font-family:var(--font-display); font-weight:700; font-size:10px; letter-spacing:.34em;
-    color:var(--silver); text-transform:uppercase; display:block; margin-top:3px;
-  }
-  .nav-links{ display:flex; gap:26px; list-style:none; }
-  .nav-links a{
-    font-family:var(--font-display); font-weight:700; text-transform:uppercase;
-    font-size:12.5px; letter-spacing:.08em; color:var(--txt); padding-block:8px; position:relative;
-  }
-  .nav-links a::after{
-    content:""; position:absolute; left:0; right:100%; bottom:0; height:2px;
-    background:var(--gold); transition:right .3s ease; border-radius:2px;
-  }
-  .nav-links a:hover{ color:var(--white); }
-  .nav-links a:hover::after, .nav-links a.is-active::after{ right:0; }
-  .nav-links a.is-active{ color:var(--white); }
-
-  .lang{
-    display:flex; align-items:center; gap:6px; border:1px solid var(--line-2); border-radius:8px;
-    padding:8px 12px; font-family:var(--font-mono); font-size:11px; letter-spacing:.12em; color:var(--txt);
-    background:rgba(255,255,255,.02); cursor:pointer;
-  }
-  .lang:hover{ border-color:var(--cyan); }
-  .lang .caret{ font-size:9px; color:var(--dim); }
-
-  .nav-toggle{
-    display:none; background:transparent; border:1px solid var(--line-2); border-radius:8px;
-    color:var(--txt); width:42px; height:38px; cursor:pointer; align-items:center; justify-content:center;
-  }
-  .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{
-    content:""; display:block; width:16px; height:1.6px; background:currentColor; position:relative;
-  }
-  .nav-toggle span::before{ position:absolute; top:-5px; }
-  .nav-toggle span::after{ position:absolute; top:5px; }
-
-  /* ---------- hero ---------- */
-  .hero{ position:relative; overflow:hidden; background:
-      radial-gradient(110% 82% at 82% 28%, rgba(22,214,201,.16), transparent 58%),
-      radial-gradient(90% 70% at 72% 56%, rgba(231,178,60,.11), transparent 64%),
-      var(--bg); }
-  #lattice{ position:absolute; inset:0 0 0 34%; width:66%; height:100%; }
-
-  /* molecular hex field: two identical tiles stacked and slid upward, so the
-     loop is seamless and the whole thing rides on the GPU (no JS per frame) */
-  .hexlayer{ position:absolute; inset:0; overflow:hidden; z-index:0; pointer-events:none; }
-  .hexlayer .strip{
-    position:absolute; left:0; right:0; top:0; height:200%;
-    animation: hexrise 80s linear infinite;
-    will-change: transform;
-  }
-  .hexlayer .tile{ height:50%; background-repeat:no-repeat; background-size:100% 100%; }
-  @keyframes hexrise{ from{ transform:translateY(0); } to{ transform:translateY(-50%); } }
-  @media (prefers-reduced-motion: reduce){ .hexlayer .strip{ animation:none; } }
-  .hero::after{
-    content:""; position:absolute; inset:0; pointer-events:none;
-    background:
-      /* vignette that dissolves the canvas rectangle into the page */
-      radial-gradient(72% 78% at 72% 46%, transparent 42%, rgba(5,6,10,.72) 78%, #05060A 100%),
-      radial-gradient(58% 62% at 10% 42%, rgba(5,6,10,.90), transparent 74%),
-      radial-gradient(100% 46% at 50% 108%, #05060A, transparent 72%);
-  }
-  .hero-grid{
-    position:relative; z-index:2;
-    display:grid; grid-template-columns: 0.92fr 1.18fr; gap:36px; align-items:center;
-    padding-block: clamp(44px, 5.5vw, 76px);
-  }
-  .hero h1{
-    font-size: clamp(38px, 5.6vw, 66px); line-height:.98; margin:16px 0 20px;
-  }
-  .hero h1 .l2{ background:linear-gradient(92deg,#5DD3FF,#4C7DF7); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .hero h1 .l3{ background:linear-gradient(92deg,#4C7DF7,#A855F7); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .hero p.lede{ font-size:16.5px; color:var(--txt); max-width:46ch; }
-
-  .hero-features{ display:flex; gap:26px; flex-wrap:wrap; margin:30px 0 30px; }
-  .feat{ display:flex; gap:12px; align-items:flex-start; max-width:190px; }
-  .feat .ring{
-    width:42px; height:42px; border-radius:50%; border:1.5px solid currentColor;
-    display:grid; place-items:center; flex:none; background:rgba(255,255,255,.02);
-  }
-  .feat .ring svg{ width:19px; height:19px; }
-  .feat h4{ font-size:12px; letter-spacing:.04em; line-height:1.3; color:var(--white); }
-  .feat p{ font-size:12.5px; color:var(--dim); line-height:1.45; margin-top:4px; text-transform:none; }
-  .hero-cta{ display:flex; gap:14px; flex-wrap:wrap; }
-
-  .hero-art{ position:relative; display:grid; place-items:center; min-height:340px; }
-
-  /* free-standing wordmark: no plate, no frame — just the letters, in gold
-     with a sheen that sweeps across them */
-  .lockup{
-    position:relative; width:min(112%, 720px); margin-inline:auto; text-align:center;
-    animation: float 9s ease-in-out infinite;
-    /* promote to its own layer: without this the float re-rasterises the
-       glowing text every frame instead of just compositing it */
-    will-change: transform;
-    backface-visibility: hidden;
-  }
-  /* pool of shadow so the letters hold up over the bright coil */
-  .lockup::before{
-    content:""; position:absolute; inset:-22% -16%; z-index:-1;
-    background: radial-gradient(66% 60% at 50% 47%,
-      rgba(5,6,10,.94), rgba(5,6,10,.74) 46%, rgba(5,6,10,.30) 68%, rgba(5,6,10,0) 84%);
-  }
-  .lockup .mark{
-    display:block; width:100%; height:auto;
-    /* drop-shadow, no text-shadow: sobre un degradado recortado la sombra de
-       texto se pinta ENCIMA y apaga el oro */
-    filter:
-      drop-shadow(0 10px 22px rgba(0,0,0,.72));
-  }
-  .lockup .labs{
-    display:block; margin-top:-4px; text-align:right; padding-right:9%;
-    font-family:var(--font-display); font-weight:800; font-style:italic;
-    font-size: clamp(20px, 2.7vw, 38px); letter-spacing:.5em; text-indent:.5em;
-    text-transform:uppercase; color:#E6EAF2;
-    text-shadow:0 2px 14px rgba(0,0,0,.85), 0 0 30px rgba(199,204,212,.35);
-  }
-  .lockup .rule{
-    display:block; width:min(86%, 400px); height:1px; margin:26px auto 16px;
-    background:linear-gradient(90deg, transparent, var(--gold), transparent);
-  }
-  .lockup .sub{
-    display:block; font-family:var(--font-mono);
-    font-size: clamp(10px, 1.05vw, 13px); letter-spacing:.4em; text-indent:.4em;
-    text-transform:uppercase; color:var(--gold-pale);
-    text-shadow:0 2px 12px rgba(0,0,0,.9);
-  }
-  @keyframes float{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-10px);} }
-  @media (prefers-reduced-motion: reduce){
-    .lockup{ animation:none; }
-  }
-
-  /* ---------- trust strip ---------- */
-  .trust{
-    border:1px solid var(--line); border-radius:14px; background:
-      linear-gradient(180deg, rgba(14,18,32,.9), rgba(8,10,18,.9));
-    display:grid; grid-template-columns:repeat(4,1fr); overflow:hidden;
-  }
-  .trust > div{ display:flex; gap:14px; padding:24px 22px; border-left:1px solid var(--line); }
-  .trust > div:first-child{ border-left:0; }
-  .trust .ico{ width:34px; height:34px; flex:none; }
-  .trust h4{ font-size:12.5px; letter-spacing:.04em; color:var(--white); line-height:1.3; }
-  .trust p{ font-size:12.5px; color:var(--dim); margin-top:5px; line-height:1.45; }
-
-  /* ---------- category cards ---------- */
-  .cats{ display:grid; grid-template-columns:repeat(6,1fr); gap:16px; }
-  .cat{
-    position:relative; border:1px solid var(--line); border-radius:14px; overflow:hidden;
-    background: linear-gradient(180deg, var(--panel-2), var(--panel));
-    display:flex; flex-direction:column;
-    transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
-  }
-  .cat:hover{ transform:translateY(-4px); border-color:var(--c); box-shadow:0 24px 44px -28px var(--c); }
-  .cat .art{
-    position:relative; height:150px;
-    background:
-      radial-gradient(75% 70% at 50% 40%, color-mix(in srgb, var(--c) 42%, transparent), transparent 72%),
-      linear-gradient(180deg, #070A12, #05070D);
-    display:grid; place-items:center; border-bottom:1px solid var(--line);
-  }
-  .cat .art svg{ width:88px; height:88px; opacity:.95; }
-  .cat .badge{
-    position:absolute; left:14px; bottom:-18px; width:38px; height:38px; border-radius:50%;
-    display:grid; place-items:center; background:#080B12; border:1.5px solid var(--c); color:var(--c);
-  }
-  .cat .badge svg{ width:17px; height:17px; }
-  .cat .body{ padding:30px 16px 18px; display:flex; flex-direction:column; gap:9px; flex:1; }
-  .cat h3{ color:var(--c); font-size:14.5px; letter-spacing:.02em; }
-  .cat p{ font-size:12.8px; color:var(--dim); line-height:1.5; }
-  .cat .go{
-    margin-top:auto; font-family:var(--font-display); font-weight:800; font-size:11.5px;
-    letter-spacing:.1em; text-transform:uppercase; color:var(--c);
-    display:inline-flex; align-items:center; gap:7px;
-  }
-
-  /* ---------- quality panel ---------- */
-  .quality{
-    margin-top:26px; border:1px solid var(--line); border-radius:14px;
-    background: linear-gradient(180deg, rgba(14,18,32,.9), rgba(8,10,18,.9));
-    padding:22px 24px; display:grid; grid-template-columns:auto 1fr auto; gap:26px; align-items:center;
-  }
-  .quality .seal{ display:flex; align-items:center; gap:13px; }
-  .quality .seal svg{ width:44px; height:44px; }
-  .quality .seal h4{ font-size:13px; letter-spacing:.04em; color:var(--white); line-height:1.25; }
-  .quality > p{ font-size:13.5px; color:var(--dim); max-width:44ch; }
-  .qstats{ display:flex; gap:12px; flex-wrap:wrap; }
-  .qstat{ display:flex; align-items:center; gap:9px; padding-left:14px; border-left:1px solid var(--line); }
-  .qstat:first-child{ border-left:0; padding-left:0; }
-  .qstat svg{ width:26px; height:26px; }
-  .qstat b{ display:block; font-family:var(--font-display); font-size:12.5px; letter-spacing:.03em; color:var(--white); }
-  .qstat span{ font-family:var(--font-mono); font-size:9.5px; letter-spacing:.16em; color:var(--dim); text-transform:uppercase; }
-
-  /* ---------- products ---------- */
-  .grid-products{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-  .card{
-    position:relative; border:1px solid var(--line); border-radius:14px; background:var(--panel);
-    padding:24px 22px 22px; display:flex; flex-direction:column; gap:13px;
-    transition:border-color .3s ease, transform .3s ease, box-shadow .3s ease;
-  }
-  .card:hover{ border-color:var(--cyan); transform:translateY(-3px); box-shadow:0 24px 44px -30px rgba(56,189,248,.6); }
-  .card-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
-  .tag{
-    font-family:var(--font-mono); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase;
-    color:var(--gold); border:1px solid var(--gold-deep); border-radius:6px; padding:4px 8px; white-space:nowrap;
-  }
-  .tag--dim{ color:var(--dim); border-color:var(--line-2); }
-  .card h3{ font-size:21px; color:var(--white); }
-  .card .cas{ font-family:var(--font-mono); font-size:11px; letter-spacing:.06em; color:var(--dim); }
-  .card dl{
-    display:grid; grid-template-columns:auto 1fr; gap:7px 14px;
-    font-family:var(--font-mono); font-size:11.5px; border-top:1px solid var(--line); padding-top:14px;
-  }
-  .card dt{ color:var(--dim); text-transform:uppercase; font-size:10px; letter-spacing:.14em; }
-  .card dd{ color:var(--txt); text-align:right; font-variant-numeric:tabular-nums; }
-  .card-foot{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:auto; padding-top:6px; }
-  .price{
-    font-family:var(--font-display); font-weight:800; font-size:24px; letter-spacing:-.02em;
-    font-variant-numeric:tabular-nums;
-    background-image:var(--gold-grad); -webkit-background-clip:text; background-clip:text; color:transparent;
-  }
-  .price small{ display:block; font-family:var(--font-mono); font-size:9.5px; letter-spacing:.14em; color:var(--dim);
-    font-weight:400; margin-top:2px; -webkit-text-fill-color:var(--dim); }
-  .card-link{
-    font-family:var(--font-display); font-weight:800; text-transform:uppercase; font-size:11.5px;
-    letter-spacing:.1em; color:var(--cyan); display:inline-flex; gap:7px; align-items:center;
-  }
-  .catalog-note{
-    margin-top:24px; border:1px dashed var(--line-2); border-radius:12px; padding:20px 22px;
-    display:flex; gap:18px; align-items:center; justify-content:space-between; flex-wrap:wrap;
-    font-size:14.5px; color:var(--dim); background:rgba(10,13,21,.6);
-  }
-
-  /* ---------- split / standard ---------- */
-  .split{ display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(28px,4vw,60px); align-items:center; }
-  .checklist{ list-style:none; display:flex; flex-direction:column; gap:12px; margin-top:22px; }
-  .checklist li{ display:grid; grid-template-columns:20px 1fr; gap:13px; align-items:start; color:var(--txt); font-size:15px; }
-  .checklist svg{ width:20px; height:20px; color:var(--green); margin-top:3px; }
-  .notice{
-    margin-top:24px; border:1px solid var(--line); border-left:3px solid var(--gold); border-radius:10px;
-    padding:15px 18px; background:rgba(231,178,60,.05); font-size:14px; color:var(--dim);
-  }
-  .notice b{ display:block; font-family:var(--font-display); text-transform:uppercase; font-size:11px;
-    letter-spacing:.14em; color:var(--gold-pale); margin-bottom:5px; }
-  .vial-art{
-    position:relative; border:1px solid var(--line); border-radius:14px; overflow:hidden;
-    background: radial-gradient(circle at 50% 34%, rgba(76,125,247,.16), transparent 62%), var(--panel);
-    aspect-ratio:1/1; display:grid; place-items:center; padding:32px;
-  }
-  .vial-caption{
-    position:absolute; left:0; right:0; bottom:0; padding:12px 16px; border-top:1px solid var(--line);
-    background:rgba(5,6,10,.75); font-family:var(--font-mono); font-size:10px; letter-spacing:.16em;
-    text-transform:uppercase; color:var(--dim); display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
-  }
-
-  /* ---------- steps ---------- */
-  .steps{ display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
-  .step{ padding:26px 22px 30px; border-left:1px solid var(--line); display:flex; flex-direction:column; gap:10px;
-    background:linear-gradient(180deg, var(--panel-2), var(--panel)); }
-  .step:first-child{ border-left:0; }
-  .step .num{ font-family:var(--font-mono); font-size:11px; letter-spacing:.18em; color:var(--cyan); }
-  .step p{ font-size:14px; color:var(--dim); line-height:1.55; }
-
-  /* ---------- faq ---------- */
-  .faq{ border-top:1px solid var(--line); }
-  .faq details{ border-bottom:1px solid var(--line); }
-  .faq summary{
-    cursor:pointer; list-style:none; padding:20px 40px 20px 0; position:relative;
-    font-family:var(--font-display); font-weight:700; text-transform:uppercase; font-size:14px; color:var(--white);
-  }
-  .faq summary::-webkit-details-marker{ display:none; }
-  .faq summary::after{ content:"+"; position:absolute; right:6px; top:50%; transform:translateY(-50%);
-    font-family:var(--font-mono); font-size:19px; color:var(--cyan); line-height:1; }
-  .faq details[open] summary::after{ content:"–"; }
-  .faq details p{ padding:0 40px 22px 0; color:var(--dim); font-size:15px; max-width:75ch; }
-
-  /* ---------- contact ---------- */
-  .channels{ list-style:none; display:flex; flex-direction:column; gap:10px; }
-  .channels a{
-    display:grid; grid-template-columns:44px 1fr auto; gap:16px; align-items:center;
-    border:1px solid var(--line); border-radius:12px; padding:16px 18px; color:var(--txt);
-    background:var(--panel); transition:border-color .3s ease, background .3s ease, transform .3s ease;
-  }
-  .channels a:hover{ border-color:var(--cyan); background:var(--panel-2); transform:translateX(3px); }
-  .channels .ico{ width:44px; height:44px; border-radius:10px; border:1px solid var(--line-2);
-    display:grid; place-items:center; color:var(--cyan); }
-  .channels .ico svg{ width:19px; height:19px; }
-  .channels .lbl{ font-family:var(--font-mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--dim); display:block; }
-  .channels .val{ font-family:var(--font-display); font-weight:700; font-size:15px; color:var(--white); }
-  .channels .go{ font-family:var(--font-mono); font-size:12px; color:var(--cyan); }
-
-  /* ---------- footer ---------- */
-  .footer{ background:#020306; border-top:1px solid #121728; padding-block:52px 30px; }
-  .footer-grid{ display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:36px; }
-  .footer h4{ font-family:var(--font-mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase;
-    color:var(--dim); font-weight:400; margin-bottom:14px; }
-  .footer ul{ list-style:none; display:flex; flex-direction:column; gap:9px; }
-  .footer ul a{ color:var(--txt); font-size:14.5px; }
-  .footer ul a:hover{ color:var(--gold); }
-  .footer .disclaimer{ font-size:13px; color:#5C6679; max-width:46ch; line-height:1.6; }
-  .footer-bottom{ margin-top:38px; padding-top:20px; border-top:1px solid #121728;
-    display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
-    font-family:var(--font-mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#4E576B; }
-
-  /* ---------- reveal ---------- */
-  .reveal{ opacity:0; transform:translateY(16px); transition:opacity .7s ease, transform .7s ease; }
-  .reveal.in{ opacity:1; transform:none; }
-  @media (prefers-reduced-motion: reduce){
-    html{ scroll-behavior:auto; }
-    *,*::before,*::after{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
-    .reveal{ opacity:1; transform:none; }
-  }
-
-  /* ---------- responsive ---------- */
-  @media (max-width:1080px){
-    .cats{ grid-template-columns:repeat(3,1fr); }
-    .quality{ grid-template-columns:1fr; gap:18px; }
-    .qstat:first-child{ border-left:0; }
-  }
-  @media (max-width:940px){
-    .hero-grid{ grid-template-columns:1fr; gap:28px; }
-    .hero-art{ order:-1; min-height:0; }
-    #lattice{ inset:0; width:100%; }
-    .hero::after{ background:
-        radial-gradient(120% 52% at 50% 84%, rgba(5,6,10,.94), rgba(5,6,10,.62) 62%, transparent 88%),
-        radial-gradient(90% 34% at 50% 30%, rgba(5,6,10,.55), transparent 76%),
-        radial-gradient(100% 40% at 50% 108%, #05060A, transparent 74%); }
-    .split{ grid-template-columns:1fr; }
-    .grid-products{ grid-template-columns:repeat(2,1fr); }
-    .trust{ grid-template-columns:repeat(2,1fr); }
-    .trust > div:nth-child(3){ border-left:0; }
-    .trust > div:nth-child(n+3){ border-top:1px solid var(--line); }
-    .steps{ grid-template-columns:repeat(2,1fr); }
-    .step:nth-child(3){ border-left:0; }
-    .step:nth-child(n+3){ border-top:1px solid var(--line); }
-    .footer-grid{ grid-template-columns:1fr 1fr; }
-    .footer .about{ grid-column:1/-1; }
-  }
-  @media (max-width:720px){
-    .nav-toggle{ display:flex; }
-    .nav .wrap{ flex-wrap:wrap; height:auto; padding-block:14px; gap:12px; }
-    .nav-links{ order:3; width:100%; display:none; flex-direction:column; gap:0;
-      border-top:1px solid #131829; padding-top:4px; }
-    .nav-links.open{ display:flex; }
-    .nav-links li{ border-bottom:1px solid #101524; }
-    .nav-links a{ display:block; padding:13px 2px; }
-    .nav .btn{ display:none; }
-    .cats{ grid-template-columns:1fr; }
-    .grid-products{ grid-template-columns:1fr; }
-    .trust{ grid-template-columns:1fr; }
-    .trust > div{ border-left:0; border-top:1px solid var(--line); }
-    .trust > div:first-child{ border-top:0; }
-    .steps{ grid-template-columns:1fr; }
-    .step{ border-left:0; border-top:1px solid var(--line); }
-    .step:first-child{ border-top:0; }
-    .footer-grid{ grid-template-columns:1fr; }
-    .hero-features{ gap:18px; }
-    .feat{ max-width:none; width:100%; }
+  @media(max-width:720px){
+    .nav-toggle{display:flex}.nav .wrap{flex-wrap:wrap;height:auto;padding-block:14px;gap:12px}
+    .nav-links{order:3;width:100%;display:none;flex-direction:column;gap:0;border-top:1px solid #131829;padding-top:4px}
+    .nav-links.open{display:flex}.nav-links li{border-bottom:1px solid #101524}.nav-links a{display:block;padding:13px 2px}
+    .nav .btn{display:none}.trust{grid-template-columns:1fr}.trust>div{border-left:0;border-top:1px solid var(--line)}
+    .trust>div:first-child{border-top:0}.hero-features{gap:18px}.feat{max-width:none;width:100%}
   }
 </style>
-
+</head>
+<body>
 <div class="ticker" id="ticker">
   <div class="wrap">
     <span data-en="For laboratory research use only — not for human or veterinary consumption" data-es="Solo para uso en investigación de laboratorio — no apto para consumo humano ni veterinario">For laboratory research use only — not for human or veterinary consumption</span>
@@ -668,447 +289,6 @@
     </div>
   </div>
 </section>
-
-<section class="band" id="categories">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow" data-en="Our products" data-es="Nuestros productos">Our products</span>
-      <h2 data-en="Research peptide categories" data-es="Categorías de péptidos">Research peptide categories</h2>
-      <span class="rule"></span>
-    </div>
-    <div class="cats">
-      <article class="cat reveal" style="--c: var(--cyan)">
-        <div class="art" style="color:var(--cyan)">
-          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M32 12c0 16 36 22 36 38S32 72 32 88"/><path d="M68 12c0 16-36 22-36 38s36 22 36 38"/><path d="M35 24h30M32 38h36M32 62h36M35 76h30" stroke-width="1.6" opacity=".65"/><g fill="currentColor" stroke="none"><circle cx="32" cy="12" r="3.4"/><circle cx="68" cy="12" r="3.4"/><circle cx="50" cy="50" r="4"/><circle cx="32" cy="88" r="3.4"/><circle cx="68" cy="88" r="3.4"/></g></svg>
-          <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 7v10L12 21l7.5-4V7Z"/><path d="M4.5 7 12 11l7.5-4M12 11v10"/></svg></span>
-        </div>
-        <div class="body">
-          <h3 data-en="Growth hormone secretagogues" data-es="Secretagogos de hormona de crecimiento">Growth hormone secretagogues</h3>
-          <p data-en="Support natural GH production and recovery." data-es="Apoyan la producción natural de GH y la recuperación.">Support natural GH production and recovery.</p>
-          <a class="go" href="#best">
-            <span data-en="View products" data-es="Ver productos">View products</span>
-            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
-          </a>
-        </div>
-      </article>
-      <article class="cat reveal" style="--c: var(--purple)">
-        <div class="art" style="color:var(--purple)">
-          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="50" cy="50" r="12"/><path d="M50 38V16M50 62v22M38 50H16M62 50h22M41 41 26 26M59 41l15-15M41 59l-15 15M59 59l15 15"/><g fill="currentColor" stroke="none"><circle cx="50" cy="14" r="3"/><circle cx="50" cy="86" r="3"/><circle cx="14" cy="50" r="3"/><circle cx="86" cy="50" r="3"/><circle cx="24" cy="24" r="2.6"/><circle cx="76" cy="24" r="2.6"/><circle cx="24" cy="76" r="2.6"/><circle cx="76" cy="76" r="2.6"/></g></svg>
-          <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 7v10L12 21l7.5-4V7Z"/><path d="M4.5 7 12 11l7.5-4M12 11v10"/></svg></span>
-        </div>
-        <div class="body">
-          <h3 data-en="Fat loss &amp; metabolic support" data-es="Pérdida de grasa y apoyo metabólico">Fat loss &amp; metabolic support</h3>
-          <p data-en="Targets metabolism, fat loss and energy." data-es="Enfocados en metabolismo, grasa y energía.">Targets metabolism, fat loss and energy.</p>
-          <a class="go" href="#best">
-            <span data-en="View products" data-es="Ver productos">View products</span>
-            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
-          </a>
-        </div>
-      </article>
-      <article class="cat reveal" style="--c: var(--green)">
-        <div class="art" style="color:var(--green)">
-          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M50 12 22 22v24c0 19 12 34 28 42 16-8 28-23 28-42V22Z"/><circle cx="50" cy="48" r="11"/><path d="M50 37v22M39 48h22" stroke-width="3"/></svg>
-          <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 7v10L12 21l7.5-4V7Z"/><path d="M4.5 7 12 11l7.5-4M12 11v10"/></svg></span>
-        </div>
-        <div class="body">
-          <h3 data-en="Recovery &amp; tissue repair" data-es="Recuperación y reparación de tejidos">Recovery &amp; tissue repair</h3>
-          <p data-en="Enhances healing, repair and endurance." data-es="Favorecen cicatrización, reparación y resistencia.">Enhances healing, repair and endurance.</p>
-          <a class="go" href="#best">
-            <span data-en="View products" data-es="Ver productos">View products</span>
-            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
-          </a>
-        </div>
-      </article>
-      <article class="cat reveal" style="--c: var(--amber)">
-        <div class="art" style="color:var(--amber)">
-          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M50 50 26 32M50 50l26-16M50 50 32 76M50 50l24 22M50 50V22"/><g fill="currentColor" stroke="none"><circle cx="50" cy="50" r="9"/><circle cx="24" cy="30" r="6.5"/><circle cx="78" cy="32" r="6"/><circle cx="30" cy="78" r="6"/><circle cx="76" cy="74" r="6.5"/><circle cx="50" cy="20" r="5.5"/></g></svg>
-          <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 7v10L12 21l7.5-4V7Z"/><path d="M4.5 7 12 11l7.5-4M12 11v10"/></svg></span>
-        </div>
-        <div class="body">
-          <h3 data-en="Performance enhancement" data-es="Mejora del rendimiento">Performance enhancement</h3>
-          <p data-en="Boost performance, focus and intensity." data-es="Impulsan rendimiento, foco e intensidad.">Boost performance, focus and intensity.</p>
-          <a class="go" href="#best">
-            <span data-en="View products" data-es="Ver productos">View products</span>
-            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
-          </a>
-        </div>
-      </article>
-      <article class="cat reveal" style="--c: var(--red)">
-        <div class="art" style="color:var(--red)">
-          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M50 44 34 30M50 44l18-12M40 60 26 72M60 60l16 12M50 44v16"/><g fill="currentColor" stroke="none"><circle cx="50" cy="42" r="10"/><circle cx="31" cy="27" r="7"/><circle cx="71" cy="29" r="6.5"/><circle cx="23" cy="75" r="7"/><circle cx="79" cy="75" r="7"/><circle cx="50" cy="66" r="6"/></g></svg>
-          <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 7v10L12 21l7.5-4V7Z"/><path d="M4.5 7 12 11l7.5-4M12 11v10"/></svg></span>
-        </div>
-        <div class="body">
-          <h3 data-en="Health &amp; wellness" data-es="Salud y bienestar">Health &amp; wellness</h3>
-          <p data-en="Supports overall health, longevity and vitality." data-es="Apoyan la salud general, longevidad y vitalidad.">Supports overall health, longevity and vitality.</p>
-          <a class="go" href="#best">
-            <span data-en="View products" data-es="Ver productos">View products</span>
-            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
-          </a>
-        </div>
-      </article>
-      <article class="cat reveal" style="--c: var(--teal)">
-        <div class="art" style="color:var(--teal)">
-          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M50 50 28 38M50 50l22-12M50 50v22M50 50 30 66"/><g fill="currentColor" stroke="none"><circle cx="50" cy="50" r="10"/><circle cx="26" cy="36" r="7"/><circle cx="74" cy="36" r="7"/><circle cx="50" cy="76" r="7"/><circle cx="28" cy="68" r="5.5"/></g></svg>
-          <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 7v10L12 21l7.5-4V7Z"/><path d="M4.5 7 12 11l7.5-4M12 11v10"/></svg></span>
-        </div>
-        <div class="body">
-          <h3 data-en="Other research peptides" data-es="Otros péptidos de investigación">Other research peptides</h3>
-          <p data-en="Explore additional research compounds." data-es="Explorá otros compuestos de investigación.">Explore additional research compounds.</p>
-          <a class="go" href="#best">
-            <span data-en="View products" data-es="Ver productos">View products</span>
-            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
-          </a>
-        </div>
-      </article>
-    </div>
-
-    <div class="quality reveal">
-      <div class="seal">
-        <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
-          <defs><linearGradient id="qg" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#B07C24"/><stop offset=".5" stop-color="#F7E5AC"/><stop offset="1" stop-color="#C08A2A"/>
-          </linearGradient></defs>
-          <path d="M24 3 29 8h7l1 7 5 5-4 6 2 7-7 2-3 6-6-2-6 2-3-6-7-2 2-7-4-6 5-5 1-7h7Z" fill="none" stroke="url(#qg)" stroke-width="2"/>
-          <path d="m18 24 4 4 9-9" stroke="url(#qg)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <h4 data-en="Quality guaranteed" data-es="Calidad garantizada">Quality guaranteed</h4>
-      </div>
-      <p data-en="At PEP-T+ Labs we are committed to providing the highest quality research peptides for laboratory use." data-es="En PEP-T+ Labs nos comprometemos a ofrecer péptidos de investigación de la más alta calidad para uso en laboratorio.">At PEP-T+ Labs we are committed to providing the highest quality research peptides for laboratory use.</p>
-      <div class="qstats">
-        <div class="qstat"><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><span><b>99%+</b><span data-en="Purity" data-es="Pureza">Purity</span></span></div>
-        <div class="qstat"><svg viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16M6 19V9l4-3 4 3v10M14 19v-6l4-2v8"/></svg><span><b>HPLC</b><span data-en="Verified" data-es="Verificado">Verified</span></span></div>
-        <div class="qstat"><svg viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18h3l2-9 3 13 3-16 2.5 12H21"/></svg><span><b data-en="Mass spec" data-es="Espectrometría">Mass spec</b><span data-en="Confirmed" data-es="Confirmada">Confirmed</span></span></div>
-        <div class="qstat"><svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 9h8M8 13h5"/></svg><span><b>COA</b><span data-en="Included" data-es="Incluido">Included</span></span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="band" id="best" style="background:var(--bg-2)">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow" data-en="Best-selling products" data-es="Productos más vendidos">Best-selling products</span>
-      <h2 data-en="Catalog highlights" data-es="Destacados del catálogo">Catalog highlights</h2>
-      <span class="rule"></span>
-      <p class="muted" style="max-width:60ch" data-en="Lyophilized powder in sealed vials. Every unit ships with its certificate of analysis and a handling sheet for laboratory storage." data-es="Polvo liofilizado en viales sellados. Cada unidad se envía con su certificado de análisis y una ficha de manejo para almacenamiento en laboratorio.">Lyophilized powder in sealed vials. Every unit ships with its certificate of analysis and a handling sheet for laboratory storage.</p>
-    </div>
-    <div class="grid-products">
-      <article class="card reveal">
-        <div class="card-top">
-          <span class="tag" data-en="Best seller" data-es="Más vendido">Best seller</span>
-          <span class="tag tag--dim">CAS 137525-51-0</span>
-        </div>
-        <h3>BPC-157</h3>
-        <span class="cas">C<sub>62</sub>H<sub>98</sub>N<sub>16</sub>O<sub>22</sub> · 1419.5 g/mol</span>
-        <dl>
-          <dt data-en="Vial" data-es="Vial">Vial</dt><dd>5 mg</dd>
-          <dt data-en="Purity" data-es="Pureza">Purity</dt><dd>99.4%</dd>
-          <dt data-en="Form" data-es="Forma">Form</dt><dd data-en="Lyophilized" data-es="Liofilizado">Lyophilized</dd>
-        </dl>
-        <div class="card-foot">
-          <span class="price">$54<small data-en="per vial" data-es="por vial">per vial</small></span>
-          <a class="card-link" href="#contact"><span data-en="Order" data-es="Pedir">Order</span> <span aria-hidden="true">&rarr;</span></a>
-        </div>
-      </article>
-      <article class="card reveal">
-        <div class="card-top">
-          <span class="tag" data-en="Best seller" data-es="Más vendido">Best seller</span>
-          <span class="tag tag--dim">CAS 77591-33-4</span>
-        </div>
-        <h3>TB-500</h3>
-        <span class="cas">Thymosin β4 fragment · 4963 g/mol</span>
-        <dl>
-          <dt data-en="Vial" data-es="Vial">Vial</dt><dd>5 mg</dd>
-          <dt data-en="Purity" data-es="Pureza">Purity</dt><dd>99.1%</dd>
-          <dt data-en="Form" data-es="Forma">Form</dt><dd data-en="Lyophilized" data-es="Liofilizado">Lyophilized</dd>
-        </dl>
-        <div class="card-foot">
-          <span class="price">$58<small data-en="per vial" data-es="por vial">per vial</small></span>
-          <a class="card-link" href="#contact"><span data-en="Order" data-es="Pedir">Order</span> <span aria-hidden="true">&rarr;</span></a>
-        </div>
-      </article>
-      <article class="card reveal">
-        <div class="card-top">
-          <span class="tag tag--dim" data-en="In stock" data-es="En stock">In stock</span>
-          <span class="tag tag--dim">CAS 170851-70-4</span>
-        </div>
-        <h3>Ipamorelin</h3>
-        <span class="cas">C<sub>38</sub>H<sub>49</sub>N<sub>9</sub>O<sub>5</sub> · 711.9 g/mol</span>
-        <dl>
-          <dt data-en="Vial" data-es="Vial">Vial</dt><dd>5 mg</dd>
-          <dt data-en="Purity" data-es="Pureza">Purity</dt><dd>99.3%</dd>
-          <dt data-en="Form" data-es="Forma">Form</dt><dd data-en="Lyophilized" data-es="Liofilizado">Lyophilized</dd>
-        </dl>
-        <div class="card-foot">
-          <span class="price">$46<small data-en="per vial" data-es="por vial">per vial</small></span>
-          <a class="card-link" href="#contact"><span data-en="Order" data-es="Pedir">Order</span> <span aria-hidden="true">&rarr;</span></a>
-        </div>
-      </article>
-      <article class="card reveal">
-        <div class="card-top">
-          <span class="tag tag--dim" data-en="In stock" data-es="En stock">In stock</span>
-          <span class="tag tag--dim">CAS 863288-34-0</span>
-        </div>
-        <h3>CJC-1295 (No DAC)</h3>
-        <span class="cas">C<sub>152</sub>H<sub>252</sub>N<sub>44</sub>O<sub>42</sub> · 3367.9 g/mol</span>
-        <dl>
-          <dt data-en="Vial" data-es="Vial">Vial</dt><dd>2 mg</dd>
-          <dt data-en="Purity" data-es="Pureza">Purity</dt><dd>98.9%</dd>
-          <dt data-en="Form" data-es="Forma">Form</dt><dd data-en="Lyophilized" data-es="Liofilizado">Lyophilized</dd>
-        </dl>
-        <div class="card-foot">
-          <span class="price">$49<small data-en="per vial" data-es="por vial">per vial</small></span>
-          <a class="card-link" href="#contact"><span data-en="Order" data-es="Pedir">Order</span> <span aria-hidden="true">&rarr;</span></a>
-        </div>
-      </article>
-      <article class="card reveal">
-        <div class="card-top">
-          <span class="tag tag--dim" data-en="In stock" data-es="En stock">In stock</span>
-          <span class="tag tag--dim">CAS 89030-95-5</span>
-        </div>
-        <h3>GHK-Cu</h3>
-        <span class="cas">Copper tripeptide-1 · 403.9 g/mol</span>
-        <dl>
-          <dt data-en="Vial" data-es="Vial">Vial</dt><dd>50 mg</dd>
-          <dt data-en="Purity" data-es="Pureza">Purity</dt><dd>99.2%</dd>
-          <dt data-en="Form" data-es="Forma">Form</dt><dd data-en="Lyophilized" data-es="Liofilizado">Lyophilized</dd>
-        </dl>
-        <div class="card-foot">
-          <span class="price">$42<small data-en="per vial" data-es="por vial">per vial</small></span>
-          <a class="card-link" href="#contact"><span data-en="Order" data-es="Pedir">Order</span> <span aria-hidden="true">&rarr;</span></a>
-        </div>
-      </article>
-      <article class="card reveal">
-        <div class="card-top">
-          <span class="tag tag--dim" data-en="In stock" data-es="En stock">In stock</span>
-          <span class="tag tag--dim">CAS 307297-39-8</span>
-        </div>
-        <h3>Epithalon</h3>
-        <span class="cas">C<sub>14</sub>H<sub>22</sub>N<sub>4</sub>O<sub>9</sub> · 390.3 g/mol</span>
-        <dl>
-          <dt data-en="Vial" data-es="Vial">Vial</dt><dd>10 mg</dd>
-          <dt data-en="Purity" data-es="Pureza">Purity</dt><dd>99.0%</dd>
-          <dt data-en="Form" data-es="Forma">Form</dt><dd data-en="Lyophilized" data-es="Liofilizado">Lyophilized</dd>
-        </dl>
-        <div class="card-foot">
-          <span class="price">$44<small data-en="per vial" data-es="por vial">per vial</small></span>
-          <a class="card-link" href="#contact"><span data-en="Order" data-es="Pedir">Order</span> <span aria-hidden="true">&rarr;</span></a>
-        </div>
-      </article>
-    </div>
-    <div class="catalog-note reveal">
-      <span data-en="Also stocked: Semax, Selank, Thymosin α1, custom blends, bacteriostatic water and laboratory consumables." data-es="También disponibles: Semax, Selank, Timosina α1, mezclas personalizadas, agua bacteriostática y consumibles de laboratorio.">Also stocked: Semax, Selank, Thymosin α1, custom blends, bacteriostatic water and laboratory consumables.</span>
-      <a class="btn btn--ghost" href="#contact" data-en="Request the full price list" data-es="Pedir la lista completa">Request the full price list</a>
-    </div>
-  </div>
-</section>
-
-<section class="band" id="standard">
-  <div class="wrap">
-    <div class="split">
-      <div class="reveal">
-        <span class="eyebrow" data-en="The PEP-T+ standard" data-es="El estándar PEP-T+">The PEP-T+ standard</span>
-        <h2 style="margin:14px 0 18px" data-en="Logistics engineered for demanding labs" data-es="Logística diseñada para laboratorios exigentes">Logistics engineered for demanding labs</h2>
-        <p class="muted" data-en="We are not merely distributors. Our advantage is a direct, personal channel: no ticket queues, no procurement bureaucracy, no guessing when a shipment will move. You get a predictable process and a person who answers." data-es="No somos simples distribuidores. Nuestra ventaja es un canal directo y personal: sin colas de tickets, sin burocracia de compras, sin adivinar cuándo sale un envío. Obtenés un proceso predecible y una persona que responde.">We are not merely distributors. Our advantage is a direct, personal channel: no ticket queues, no procurement bureaucracy, no guessing when a shipment will move. You get a predictable process and a person who answers.</p>
-
-        <ul class="checklist">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg><span data-en="U.S.-based operations center" data-es="Centro de operaciones en EE. UU.">U.S.-based operations center</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg><span data-en="Discreet, unbranded outer packaging" data-es="Embalaje exterior discreto y sin marca">Discreet, unbranded outer packaging</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg><span data-en="Real-time order management and tracking" data-es="Gestión y rastreo de pedidos en tiempo real">Real-time order management and tracking</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg><span data-en="Bulk and repeat-order pricing for institutions" data-es="Precios por volumen y pedidos recurrentes para instituciones">Bulk and repeat-order pricing for institutions</span></li>
-        </ul>
-
-        <div class="notice">
-          <b data-en="Important notice" data-es="Aviso importante">Important notice</b>
-          <span data-en="All materials are supplied exclusively for laboratory research and development. Not for clinical use, human consumption or veterinary application. Purchasers are responsible for compliance with all applicable regulations." data-es="Todos los materiales se suministran exclusivamente para investigación y desarrollo de laboratorio. No aptos para uso clínico, consumo humano ni aplicación veterinaria. El comprador es responsable de cumplir la normativa aplicable.">All materials are supplied exclusively for laboratory research and development. Not for clinical use, human consumption or veterinary application. Purchasers are responsible for compliance with all applicable regulations.</span>
-        </div>
-      </div>
-
-      <figure class="vial-art reveal">
-        <svg viewBox="0 0 300 300" role="img" aria-label="Vial and molecular chain illustration">
-          <defs>
-            <linearGradient id="vGold" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#8A5A14"/><stop offset=".4" stop-color="#E7B23C"/>
-              <stop offset=".62" stop-color="#F7E5AC"/><stop offset="1" stop-color="#7E5211"/>
-            </linearGradient>
-            <linearGradient id="vSilver" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#6C727C"/><stop offset=".5" stop-color="#E4E8EE"/><stop offset="1" stop-color="#767C86"/>
-            </linearGradient>
-          </defs>
-          <g stroke="#38BDF8" stroke-width="1.5" fill="none" opacity=".55">
-            <path d="M22 96 66 62 118 88 150 44"/><path d="M186 60 232 84 268 54"/>
-            <path d="M30 226 74 250 122 232"/><path d="M198 236 244 214 278 240"/>
-          </g>
-          <g fill="#38BDF8" opacity=".75">
-            <circle cx="22" cy="96" r="5"/><circle cx="66" cy="62" r="7"/><circle cx="118" cy="88" r="5"/>
-            <circle cx="150" cy="44" r="8"/><circle cx="186" cy="60" r="5"/><circle cx="232" cy="84" r="7"/>
-            <circle cx="268" cy="54" r="5"/><circle cx="30" cy="226" r="6"/><circle cx="74" cy="250" r="8"/>
-            <circle cx="122" cy="232" r="5"/><circle cx="198" cy="236" r="6"/><circle cx="244" cy="214" r="7"/>
-            <circle cx="278" cy="240" r="5"/>
-          </g>
-          <g transform="translate(150 152) scale(1.22)">
-            <rect x="-30" y="-70" width="60" height="22" rx="3" fill="url(#vSilver)"/>
-            <rect x="-25" y="-48" width="50" height="12" fill="#232B40"/>
-            <path d="M-28 -36 h56 v78 a16 16 0 0 1 -16 16 h-24 a16 16 0 0 1 -16 -16 Z" fill="rgba(231,178,60,.10)" stroke="url(#vSilver)" stroke-width="2"/>
-            <path d="M-22 22 h44 v20 a12 12 0 0 1 -12 12 h-20 a12 12 0 0 1 -12 -12 Z" fill="url(#vGold)" opacity=".6"/>
-            <rect x="-16" y="-24" width="6" height="52" fill="#FFFFFF" opacity=".14"/>
-          </g>
-        </svg>
-        <figcaption class="vial-caption">
-          <span data-en="Lot PT-2408-A · 5 mg" data-es="Lote PT-2408-A · 5 mg">Lot PT-2408-A · 5 mg</span>
-          <span data-en="HPLC 99.4% · MS confirmed" data-es="HPLC 99.4% · MS confirmado">HPLC 99.4% · MS confirmed</span>
-        </figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
-<section class="band" id="quality" style="background:var(--bg-2)">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow" data-en="Verification chain" data-es="Cadena de verificación">Verification chain</span>
-      <h2 data-en="Four checks before a vial ships" data-es="Cuatro controles antes de enviar un vial">Four checks before a vial ships</h2>
-      <span class="rule"></span>
-    </div>
-    <div class="steps reveal">
-      <div class="step">
-        <span class="num">01</span>
-        <h3 data-en="Source qualification" data-es="Calificación de origen">Source qualification</h3>
-        <p data-en="Synthesis partners are audited for facility standards and consistency before a single order is placed." data-es="Los socios de síntesis se auditan por estándares de instalación y consistencia antes de colocar un pedido.">Synthesis partners are audited for facility standards and consistency before a single order is placed.</p>
-      </div>
-      <div class="step">
-        <span class="num">02</span>
-        <h3 data-en="Controlled synthesis" data-es="Síntesis controlada">Controlled synthesis</h3>
-        <p data-en="Solid-phase peptide synthesis under GMP-aligned protocols, with in-process controls at each coupling stage." data-es="Síntesis de péptidos en fase sólida bajo protocolos alineados a GMP, con controles en proceso en cada acoplamiento.">Solid-phase peptide synthesis under GMP-aligned protocols, with in-process controls at each coupling stage.</p>
-      </div>
-      <div class="step">
-        <span class="num">03</span>
-        <h3 data-en="HPLC + mass spec" data-es="HPLC + espectrometría">HPLC + mass spec</h3>
-        <p data-en="Purity by reverse-phase HPLC and identity by mass spectrometry, run by an independent laboratory on every lot." data-es="Pureza por HPLC de fase reversa e identidad por espectrometría de masas, en un laboratorio independiente y en cada lote.">Purity by reverse-phase HPLC and identity by mass spectrometry, run by an independent laboratory on every lot.</p>
-      </div>
-      <div class="step">
-        <span class="num">04</span>
-        <h3 data-en="Cold-chain dispatch" data-es="Despacho en cadena de frío">Cold-chain dispatch</h3>
-        <p data-en="Vials are sealed, logged and shipped in insulated packaging with the matching COA in the box." data-es="Los viales se sellan, registran y envían en embalaje aislado con el COA correspondiente dentro de la caja.">Vials are sealed, logged and shipped in insulated packaging with the matching COA in the box.</p>
-      </div>
-    </div>
-
-    <div class="split" style="margin-top:56px">
-      <div class="reveal">
-        <span class="eyebrow" data-en="Questions" data-es="Preguntas">Questions</span>
-        <h2 style="margin-top:14px" data-en="Before you order" data-es="Antes de pedir">Before you order</h2>
-      </div>
-      <div class="faq reveal">
-        <details open>
-          <summary data-en="Do all products include a certificate of analysis?" data-es="¿Todos los productos incluyen certificado de análisis?">Do all products include a certificate of analysis?</summary>
-          <p data-en="Yes. Every vial ships with the COA for its exact lot, including the HPLC chromatogram and mass spectrometry result. Digital copies are sent with the tracking email." data-es="Sí. Cada vial se envía con el COA de su lote exacto, incluyendo el cromatograma HPLC y el resultado de espectrometría de masas. Las copias digitales se envían junto con el correo de rastreo.">Yes. Every vial ships with the COA for its exact lot, including the HPLC chromatogram and mass spectrometry result. Digital copies are sent with the tracking email.</p>
-        </details>
-        <details>
-          <summary data-en="How should material be stored on arrival?" data-es="¿Cómo se debe almacenar el material al llegar?">How should material be stored on arrival?</summary>
-          <p data-en="Lyophilized powder is stable at 2–8 °C and should be kept sealed, dry and away from light. Long-term storage is best at −20 °C. A handling sheet is included in every shipment." data-es="El polvo liofilizado es estable a 2–8 °C y debe mantenerse sellado, seco y protegido de la luz. Para almacenamiento prolongado, −20 °C. Cada envío incluye una ficha de manejo.">Lyophilized powder is stable at 2–8 °C and should be kept sealed, dry and away from light. Long-term storage is best at −20 °C. A handling sheet is included in every shipment.</p>
-        </details>
-        <details>
-          <summary data-en="Which shipping and payment methods are available?" data-es="¿Qué métodos de envío y pago hay disponibles?">Which shipping and payment methods are available?</summary>
-          <p data-en="Tracked priority shipping across the 50 states, with same-day dispatch on orders confirmed before 2 PM ET. Payment by bank transfer, card or crypto; institutional purchase orders are accepted on request." data-es="Envío prioritario con rastreo a los 50 estados, con despacho el mismo día en pedidos confirmados antes de las 2 PM ET. Pago por transferencia, tarjeta o cripto; se aceptan órdenes de compra institucionales bajo solicitud.">Tracked priority shipping across the 50 states, with same-day dispatch on orders confirmed before 2 PM ET. Payment by bank transfer, card or crypto; institutional purchase orders are accepted on request.</p>
-        </details>
-        <details>
-          <summary data-en="Can you supply bulk quantities or custom blends?" data-es="¿Pueden suministrar volumen o mezclas personalizadas?">Can you supply bulk quantities or custom blends?</summary>
-          <p data-en="Yes. Send the compound, quantity and target purity and we will return a quote with lead time, typically within one business day." data-es="Sí. Envianos el compuesto, la cantidad y la pureza objetivo y te devolvemos una cotización con tiempo de entrega, normalmente en un día hábil.">Yes. Send the compound, quantity and target purity and we will return a quote with lead time, typically within one business day.</p>
-        </details>
-        <details>
-          <summary data-en="Who can buy from PEP-T+ Labs?" data-es="¿Quién puede comprar en PEP-T+ Labs?">Who can buy from PEP-T+ Labs?</summary>
-          <p data-en="Sales are limited to qualified research professionals and institutions, for laboratory research use only. We do not provide dosing guidance and our products are not intended for human or animal use." data-es="Las ventas se limitan a profesionales e instituciones de investigación calificados, únicamente para uso en investigación de laboratorio. No damos indicaciones de dosificación y nuestros productos no están destinados a uso humano ni animal.">Sales are limited to qualified research professionals and institutions, for laboratory research use only. We do not provide dosing guidance and our products are not intended for human or animal use.</p>
-        </details>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="band" id="contact" style="background:radial-gradient(70% 100% at 15% 0%, rgba(76,125,247,.10), transparent 62%), var(--bg)">
-  <div class="wrap">
-    <div class="split">
-      <div class="reveal">
-        <span class="eyebrow" data-en="Contact" data-es="Contacto">Contact</span>
-        <h2 style="margin-top:14px" data-en="Take your results to the next level" data-es="Llevá tus resultados al siguiente nivel">Take your results to the next level</h2>
-        <p class="muted" style="margin-top:16px; max-width:46ch" data-en="Send the compound and quantity you need. You will get availability, price and lead time — no forms, no waiting queue." data-es="Envianos el compuesto y la cantidad que necesitás. Vas a recibir disponibilidad, precio y tiempo de entrega, sin formularios ni colas de espera.">Send the compound and quantity you need. You will get availability, price and lead time — no forms, no waiting queue.</p>
-        <p class="muted" style="margin-top:14px; font-size:14px" data-en="Support hours: Monday to Friday, 9 AM – 6 PM ET." data-es="Horario de atención: lunes a viernes, 9 AM – 6 PM ET.">Support hours: Monday to Friday, 9 AM – 6 PM ET.</p>
-      </div>
-
-      <ul class="channels reveal">
-        <li><a href="mailto:orders@pept-labs.com">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="m3 6 9 6 9-6"/></svg></span>
-          <span><span class="lbl" data-en="Email" data-es="Correo">Email</span><span class="val">orders@pept-labs.com</span></span>
-          <span class="go" aria-hidden="true">&gt;&gt;&gt;</span>
-        </a></li>
-        <li><a href="https://wa.me/10000000000" target="_blank" rel="noopener noreferrer">
-          <span class="ico" style="color:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.7-5.2A8.5 8.5 0 1 1 21 11.5Z"/><path d="M8.6 9.2c.3 2.6 3.6 5.9 6.2 6.2l1.2-1.4-2-1.2-1 .8c-1-.5-2-1.5-2.5-2.5l.8-1L10 8.1Z"/></svg></span>
-          <span><span class="lbl">WhatsApp</span><span class="val" data-en="Direct chat with the desk" data-es="Chat directo con el equipo">Direct chat with the desk</span></span>
-          <span class="go" aria-hidden="true">&gt;&gt;&gt;</span>
-        </a></li>
-        <li><a href="https://t.me/peptlabs" target="_blank" rel="noopener noreferrer">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 4.3 2.8 11.4l5.1 1.7 1.9 5.6 2.8-3.3 4.3 3.2Z"/><path d="m7.9 13.1 9.6-6.5-6.9 8"/></svg></span>
-          <span><span class="lbl">Telegram</span><span class="val">@peptlabs</span></span>
-          <span class="go" aria-hidden="true">&gt;&gt;&gt;</span>
-        </a></li>
-        <li><a href="mailto:orders@pept-labs.com?subject=Bulk%20quote%20request">
-          <span class="ico" style="color:var(--gold)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5Z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></svg></span>
-          <span><span class="lbl" data-en="Bulk desk" data-es="Mayoreo">Bulk desk</span><span class="val" data-en="Volume and institutional quotes" data-es="Cotizaciones por volumen e institucionales">Volume and institutional quotes</span></span>
-          <span class="go" aria-hidden="true">&gt;&gt;&gt;</span>
-        </a></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div class="about">
-        <a class="brand" href="#top" style="margin-bottom:16px">
-          <svg viewBox="0 0 40 40" aria-hidden="true">
-            <defs><linearGradient id="fGold" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#B07C24"/><stop offset=".45" stop-color="#F7E5AC"/><stop offset="1" stop-color="#C08A2A"/>
-            </linearGradient></defs>
-            <path d="M13 2 H27 L38 13 V27 L27 38 H13 L2 27 V13 Z" fill="none" stroke="url(#fGold)" stroke-width="1.8"/>
-            <path d="M9 26 L16 15 L24 21 L31 11" fill="none" stroke="url(#fGold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <g fill="url(#fGold)"><circle cx="9" cy="26" r="2.2"/><circle cx="16" cy="15" r="2.6"/><circle cx="24" cy="21" r="2.2"/><circle cx="31" cy="11" r="2.6"/></g>
-          </svg>
-          <span><span class="brand-name">PEP-T+</span><span class="brand-sub">Labs</span></span>
-        </a>
-        <p class="disclaimer" data-en="All products sold by PEP-T+ Labs are intended exclusively for laboratory research. They are not drugs, foods or cosmetics, and are not for human or veterinary use. Statements on this site have not been evaluated by the FDA." data-es="Todos los productos vendidos por PEP-T+ Labs están destinados exclusivamente a investigación de laboratorio. No son medicamentos, alimentos ni cosméticos, y no son para uso humano ni veterinario. Las afirmaciones de este sitio no han sido evaluadas por la FDA.">All products sold by PEP-T+ Labs are intended exclusively for laboratory research. They are not drugs, foods or cosmetics, and are not for human or veterinary use. Statements on this site have not been evaluated by the FDA.</p>
-      </div>
-      <div>
-        <h4 data-en="Products" data-es="Productos">Products</h4>
-        <ul>
-          <li><a href="#categories" data-en="Categories" data-es="Categorías">Categories</a></li>
-          <li><a href="#best" data-en="Best sellers" data-es="Más vendidos">Best sellers</a></li>
-          <li><a href="#contact" data-en="Full price list" data-es="Lista de precios">Full price list</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 data-en="Company" data-es="Empresa">Company</h4>
-        <ul>
-          <li><a href="#standard" data-en="The standard" data-es="El estándar">The standard</a></li>
-          <li><a href="#quality" data-en="Quality" data-es="Calidad">Quality</a></li>
-          <li><a href="#quality" data-en="FAQ" data-es="Preguntas">FAQ</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 data-en="Reach us" data-es="Contacto">Reach us</h4>
-        <ul>
-          <li><a href="mailto:orders@pept-labs.com">orders@pept-labs.com</a></li>
-          <li><a href="https://t.me/peptlabs" target="_blank" rel="noopener noreferrer">Telegram · @peptlabs</a></li>
-          <li><a href="https://wa.me/10000000000" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 PEP-T+ Labs</span>
-      <span data-en="Research use only · United States" data-es="Solo para investigación · Estados Unidos">Research use only · United States</span>
-    </div>
-  </div>
-</footer>
 <script>
 (function () {
   'use strict';
@@ -1508,6 +688,6 @@
   start();
 })();
 </script>
-
 </body>
 </html>
+
